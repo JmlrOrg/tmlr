@@ -37,11 +37,9 @@ if __name__ == "__main__":
 
         render_webpage(env, "index.html", base_url)
         for page in [
-                "author-info.html",
+                "submissions.html",
                 "contact.html",
                 "editorial-board.html",
-                "editorial-board-reviewers.html",
-                "news.html",
                 "reviewer-guide.html",
                 "stats.html",
                 "faq.html",
