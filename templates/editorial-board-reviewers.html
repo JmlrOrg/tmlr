@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+
+{% block extraheader %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+   
+   $('#innercontent').load("/manudb/editorial_board");
+
+});
+</script>
+
+
+</body>
+</html>
+<style>
+    .editors li {
+        margin-bottom: 8px;
+    }
+    .editors .name {
+        font-weight: bold;
+    }
+    .editors a {
+        text-decoration: none;
+    }
+    .editors .research {
+        display: block;
+        font-size: 88%;
+        color: #555;
+        max-width: 500px;
+    }
+    #board a {
+      font-weight: bold;
+    }
+    #board li{
+      list-style-type: none;
+      margin-left: 2em;
+      margin-bottom: 0.5em;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Editorial board reviewers</h1>
+<div id="innercontent"></div>
+
+{% endblock %}
