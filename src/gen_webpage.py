@@ -43,7 +43,6 @@ if __name__ == "__main__":
                 "reviewer-guide.html",
                 "author-guide.html",
                 "ae-guide.html",
-                "faq.html",
                 "editorial-policies.html",
                 "code.html",
                 "ethics.html"
