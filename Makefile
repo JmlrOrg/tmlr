@@ -21,3 +21,6 @@ test:
 
 develop:
 	livereload -p 8001 output/
+
+upload:
+	rsync -arvz output/ ${JMLR_USER}@${JMLR_PATH}/tmlr/
