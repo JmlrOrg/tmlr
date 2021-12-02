@@ -1,0 +1,158 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="c9" id="h.7lf6ddsxgsyu"><span class="c12">TMLR </span><span class="c12">Ethics Guidelines</span></h1>
+    <p class="c14"><span class="c15">Adapted from the </span><span class="c5 c15 c16"><a class="c4"
+                href="https://www.google.com/url?q=https://neurips.cc/public/EthicsGuidelines&amp;sa=D&amp;source=editors&amp;ust=1638474654843000&amp;usg=AOvVaw3CtzUf99tU2Rloz6Q3l8Mg">NeurIPS
+                Ethics Guidelines</a></span></p>
+    <h2 class="c9" id="h.9vzvbriuiq3b"><span class="c3 c7">Introduction</span></h2>
+    <p class="c2"><span class="c3 c0">As ML research and applications have increasing real-world impact, the likelihood
+            of meaningful social benefit increases, as does the attendant risk of harm. Indeed, problems with data
+            privacy, algorithmic bias, automation risk, and potential malicious uses of AI have been well-documented
+            [1].</span></p>
+    <p class="c2"><span class="c0">In the light of these findings, machine learning (ML) researchers can no longer
+            &lsquo;simply assume that... research will have a net positive impact on the world&rsquo; [2]. The research
+            community should consider </span><span class="c0">not only the potential benefits but also the potential
+            negative impacts of ML research</span><span class="c3 c0">, and adopt measures that enable positive
+            trajectories to unfold while mitigating risk of harm. We expect authors to discuss such ethical and societal
+            consequences of their work in their papers, while avoiding excessive speculation.</span></p>
+    <p class="c2"><span class="c0">This document should be used by both authors and reviewers</span><span
+            class="c0">&nbsp;</span><span class="c0">to establish common ground about the ethics guidelines. The primary
+            goal of the Broader Impact Concerns assessment by reviewers is to provide </span><span class="c0">critical
+            feedback </span><span class="c0">for the authors to incorporate to improve their paper. In rare situations,
+            however, TMLR reserves the right to </span><span class="c0">reject</span><span
+            class="c3 c0">&nbsp;submissions that have violated key ethical principles.</span></p>
+    <p class="c2"><span class="c3 c0">There are two aspects of ethics to consider: potential negative societal impacts
+            (Section 2) and general ethical conduct (Section 3).</span></p>
+    <h2 class="c9" id="h.5kuqsexilknk"><span class="c3 c7">Potential for Negative Societal Impact</span></h2>
+    <p class="c2"><span class="c0">Submissions to TMLR </span><span class="c0">are expected, when applicable, to include
+            a discussion about </span><span class="c0">potential negative societal impacts</span><span
+            class="c0">&nbsp;</span><span class="c3 c0">of the proposed research artifact or application. Whenever these
+            are identified, submissions should also include a discussion about how these risks can be mitigated.</span>
+    </p>
+    <p class="c2"><span class="c0">Grappling with ethics is a difficult problem for the field, and thinking about ethics
+            is still relatively new to many authors. Given its controversial nature, we choose to place a strong
+            emphasis on </span><span class="c0">transparency</span><span class="c3 c0">. In certain cases, it will not
+            be possible to draw a bright line between ethical and unethical research. A paper should therefore discuss
+            any potential issues, welcoming a broader discussion that engages the whole community.</span></p>
+    <p class="c2"><span class="c0">A common difficulty with assessing ethical impact is its </span><span
+            class="c0">indirectness</span><span class="c3 c0">: most papers focus on general-purpose methodologies
+            (e.g., optimization algorithms), whereas ethical concerns are more apparent when considering deployed
+            applications (e.g., surveillance systems). Also, real-world impact (both positive and negative) often
+            emerges from the cumulative progress of many papers, so it is difficult to attribute the impact to an
+            individual paper.</span></p>
+    <p class="c2"><span class="c0">The ethics consequences of a paper can stem from either the </span><span
+            class="c5 c0">methodology</span><span class="c0">&nbsp;or the </span><span
+            class="c5 c0">application</span><span class="c3 c0">. On the methodology side, for example, a new
+            adversarial attack might give unbalanced power to malicious entities; in this case, defenses and other
+            mitigation strategies would be expected, as is standard in computer security. On the application side, in
+            some cases, the choice of application is incidental to the core contribution of the paper, and a potentially
+            harmful application should be swapped out (as an extreme example, replacing ethnicity classification with
+            bird classification), but the potential mis-uses should be still noted. In other cases, the core
+            contribution might be inseparable from a questionable application (e.g., reconstructing a face given
+            speech). In such cases, one should critically examine whether the scientific (and ethical) merits really
+            outweigh the potential ethical harms.</span></p>
+    <p class="c2"><span class="c3 c0">A non-exhaustive list of potential negative societal impacts is included below.
+            Consider whether the proposed methods and applications can:</span></p>
+    <ol class="c13 lst-kix_stetuyd4ovp4-0 start" start="1">
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Directly facilitate injury to living beings</span><span
+                class="c3 c0">. For example: could it be integrated into weapons or weapons systems?</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Raise safety or security concerns</span><span class="c3 c0">.
+                For example: is there a risk that applications could cause serious accidents or open security
+                vulnerabilities when deployed in real-world environments?</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Raise human rights concerns</span><span class="c0">. For
+                example: could the technology be used to discriminate, exclude, or otherwise negatively impact people,
+                including impacts on the provision of vital services, such as healthcare and education, or limit access
+                to opportunities like employment? Please consult the </span><span class="c1"><a class="c4"
+                    href="https://www.google.com/url?q=https://www.torontodeclaration.org/declaration-text/english/&amp;sa=D&amp;source=editors&amp;ust=1638474654846000&amp;usg=AOvVaw1WoYrK6kz3ncbhc843GT0U">Toronto
+                    Declaration</a></span><span class="c3 c0">&nbsp;for further details.</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Have a detrimental effect on people&rsquo;s livelihood or
+                economic security</span><span class="c3 c0">. For example: have a detrimental effect on people&rsquo;s
+                autonomy, dignity, or privacy at work, or threaten their economic security (e.g., via automation or
+                disrupting an industry)? Could it be used to increase worker surveillance, or impose conditions that
+                present a risk to the health and safety of employees?</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Develop or extend harmful forms of surveillance</span><span
+                class="c3 c0">. For example: could it be used to collect or analyze bulk surveillance data to predict
+                immigration status or other protected categories, or be used in any kind of criminal profiling?</span>
+        </li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Severely damage the environment</span><span class="c3 c0">.
+                For example: would the application incentivize significant environmental harms such as deforestation,
+                fossil fuel extraction, or pollution?</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Deceive people in ways that cause harm</span><span
+                class="c3 c0">. For example: could the approach be used to facilitate deceptive interactions that would
+                cause harms such as theft, fraud, or harassment? Could it be used to impersonate public figures to
+                influence political processes, or as a tool of hate speech or abuse?</span></li>
+    </ol>
+    <h2 class="c9" id="h.8awhzberspbx"><span class="c7">General Ethical Conduct</span></h2>
+    <p class="c2"><span class="c3 c0">Submissions must adhere to ethical standards for responsible research practice and
+            due diligence in the conduct.</span></p>
+    <p class="c2"><span class="c3 c0">If the research uses human-derived data, consider whether that data might:</span>
+    </p>
+    <ol class="c13 lst-kix_l2png0gdiv6u-0 start" start="1">
+        <li class="c2 c6 li-bullet-0"><span class="c0 c5">Contain any personally identifiable information or sensitive
+                personally identifiable information</span><span class="c3 c0">. For instance, does the dataset use
+                features or label information about individual names? Did people provide their consent on the collection
+                of such data? Could the use of the data be degrading or embarrassing for some people?</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Contain information that could be deduced about individuals
+                that they have not consented to share</span><span class="c3 c0">. For instance, a dataset for
+                recommender systems could inadvertently disclose user information such as their name, depending on the
+                features provided.</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Encode, contain, or potentially exacerbate bias against people
+                of a certain gender, race, sexuality, or who have other protected characteristics</span><span
+                class="c3 c0">. For instance, does the dataset represent the diversity of the community where the
+                approach is intended to be deployed?</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Contain human subject experimentation and whether it has been
+                reviewed and approved by a relevant oversight board</span><span class="c0 c3">. For instance, studies
+                predicting characteristics (e.g., health status) from human data (e.g., contacts with people infected by
+                COVID-19) are expected to have their studies reviewed by an ethical board.</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Have been discredited by the creators.</span><span
+                class="c3 c0">&nbsp;For instance, the DukeMTMC-ReID dataset has been taken down and it should not be
+                used in TMLR submissions.</span></li>
+    </ol>
+    <p class="c2"><span class="c3 c0">In general, there are other issues related to data that are worthy of
+            consideration and review. These include:</span></p>
+    <ol class="c13 lst-kix_dgajxzi6f1hr-0 start" start="1">
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Consent to use or share the data</span><span class="c3 c0">.
+                Explain whether you have asked the data owner&rsquo;s permission to use or share data and what the
+                outcome was. Even if you did not receive consent, explain why this might be appropriate from an ethical
+                standpoint. For instance, if the data was collected from a public forum, were its users asked consent to
+                use the data they produced, and if not, why?</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Domain specific considerations when working with high-risk
+                groups</span><span class="c3 c0">. For example, if the research involves work with minors or vulnerable
+                adults, have the relevant safeguards been put in place?</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Filtering of offensive content</span><span class="c3 c0">. For
+                instance, when collecting a dataset, how are the authors filtering offensive content such as racist
+                language or violent imagery?</span></li>
+        <li class="c2 c6 li-bullet-0"><span class="c5 c0">Compliance with GDPR and other data-related
+                regulations</span><span class="c3 c0">. For instance, if the authors collect human-derived data, what is
+                the mechanism to guarantee individuals&rsquo; right to be forgotten (removed from the dataset)?</span>
+        </li>
+    </ol>
+    <p class="c2"><span class="c3 c0">This list is not intended to be exhaustive &mdash; it is included here as a prompt
+            for author and reviewer reflection.</span></p>
+    <h2 class="c9" id="h.kxetz6fqs1ae"><span class="c3 c7">Final Remarks</span></h2>
+    <p class="c2"><span class="c3 c0">In summary, we expect TMLR submissions to include discussion about potential
+            harms, malicious use, and other potential ethical concerns arising from the use of the proposed approach or
+            application. We also expect authors to include a discussion about methods to mitigate such risks. Moreover,
+            authors should adhere to best practices in their handling of data. Whenever there are risks associated with
+            the proposed methods, methodology, application or data collection and data usage, authors are expected to
+            elaborate on the rationale of their decision and potential mitigations. Submissions will be evaluated also
+            in terms of the depth of such ethical reflections.</span></p>
+    <h2 class="c9" id="h.mjy75f6ug6rr"><span class="c3 c7">References</span></h2>
+    <p class="c2"><span class="c0">[1] J. Whittlestone, R. Nyrup, A. Alexandrova, K. Dihal, and S. Cave. (2019)
+        </span><span class="c1"><a class="c4"
+                href="https://www.google.com/url?q=https://nuffieldfoundation.org/sites/default/files/files/Ethical-and-Societal-Implications-of-Data-and-AI-report-Nuffield-Foundat.pdf&amp;sa=D&amp;source=editors&amp;ust=1638474654851000&amp;usg=AOvVaw2VBk0_hVMvBiujTUpQTIab">Ethical
+                and societal implications of algorithms, data, and artificial intelligence: a roadmap for
+                research</a></span><span class="c3 c0">. London: Nuffield Foundation.</span></p>
+    <p class="c2"><span class="c0">[2] B. Hecht, L. Wilcox, J. P. Bigham, J. Schoning, E. Hoque, J. Ernst, Y. Bisk, L.
+            De Russis, L. Yarosh, B. Anjam, D. Contractor, and C. Wu. (2018) </span><span class="c1"><a class="c4"
+                href="https://www.google.com/url?q=https://brenthecht.com/papers/FCADIscussions_NegativeImpactsPost_032918.pdf&amp;sa=D&amp;source=editors&amp;ust=1638474654851000&amp;usg=AOvVaw3RdvC6S4Mx7c6jkde3Gojt">It&rsquo;s
+                Time to Do Something: Mitigating the Negative Impacts of Computing Through a Change to the Peer Review
+                Process</a></span><span class="c3 c0">. ACM Future of Computing Blog.</span></p>
+    <p class="c2"><span class="c0 c8">The NeurIPS ethics guidelines were prepared by Samy Bengio, Kate Crawford, Jeanne
+            Fromer, Iason Gabriel, Amanda Levendowski, Deborah Raji and Marc&#39;Aurelio Ranzato, with support and
+            feedback from the NeurIPS 2021 Program Chairs Alina Beygelzimer, Yann Dauphin, Percy Liang, Jenn Wortman
+            Vaughan.</span></p>
+    <p class="c14 c18"><span class="c0 c10"></span></p>
+{% endblock %}

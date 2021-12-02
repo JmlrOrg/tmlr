@@ -2,28 +2,59 @@
 
 {% block content %}
 
-<h1>Contact Information</h1>
-
-<p>Before contacting us, please make sure that your question is not answered in the <a href="https://www.jmlr.org/manudb/faq">Frequently Asked Questions</a>. JMLR is run by a small team of volunteers, please be mindful before addressing inquiries to the editorial team.</p>
-
-<p>Please address any <b>inquiries about the status of a paper under review</b> to the Action Editor in charge of your paper. The name of your action editor will appear in the submission system once its assigned, which should happen no later than once month after submission. Only if your AE is not responsive reach out to us at <a href="mailto:editor@jmlr.org">editor@jmlr.org</a></p>
-
-<p>If you <b>forgot your password</b>, you can reset it by entering your email <a href="http://jmlr.csail.mit.edu/manudb/resetpasswd">in this link</a>
-
-
-<p>If you have any question regarding the JMLR paper submission system (e.g. you are an author or a reviewer and have some trouble accessing your account), please contact our managing editors at <a href="mailto:managing@jmlr.org">managing@jmlr.org</a>.</p>
-
-<p>If you have inquiries about publishing your paper (producing the pdf) after acceptance, please contact our production editors at <a href="mailto:alp@jmlr.org">alp@jmlr.org</a>.</p>
-
-<!-- <p>Any requests for modifications (e.g. fixing a typo or meta information error) to the web pages under the JMLR website (jmlr.org) can be directed to our web master ({% for e in production_editors %}<a href="{{ e.url }}">{{e.name}}</a>{% endfor %}).</p> -->
-<p>
-  If you found issues on the JMLR website (jmlr.org), like typos or broken links, please report them to the <a href="https://github.com/JmlrOrg/webpage/issues">github issue tracker</a>.
-</p>
-
-
-<p>The conference proceedings hosted under JMLR are managed separately. Inquiries or modifications related to the proceedings should primarily go to the corresponding organizer of that particular conference / workshop. Simple fixes of the webpages can also be directed to our proceeding series editors (<a href="https://inverseprobability.com">Neil Lawrence</a> and <a href="http://people.cecs.anu.edu.au/user/2675">Mark Reid</a>).</p>
-
-<p>For any other issues,  please contact our editors-in-chief ({% for e in editors_in_chief %}<a href="{{ e.url }}">{{e.name}}</a>, {% endfor %}).</p>
-
-        
+    <h1 class="c9" id="h.vj7gmpygyblc"><span class="c10">Contact Information</span></h1>
+    <p class="c3"><span>Before contacting us, please make sure that your question is not answered in the FAQ below, or
+            in the </span><span class="c12"><a class="c7"
+                href="https://www.google.com/url?q=https://openreview.net/faq&amp;sa=D&amp;source=editors&amp;ust=1638474872666000&amp;usg=AOvVaw2YfvMm8DFR6AkTgVd3xpAV">OpenReview
+                FAQ</a></span><span class="c0">. TMLR is run by a small team of volunteers; please be mindful before
+            addressing inquiries to the editorial team.</span></p>
+    <p class="c3 c5"><span class="c0"></span></p>
+    <p class="c3"><span>Please address any inquiries about the status of a paper under review to the Action Editor in
+            charge of your paper. </span><span>This can be done through OpenReview</span><span class="c0">, by
+            submitting a comment and putting the AE as a reader. Only if your AE is not responsive reach out to us at
+            tmlr@jmlr.org.</span></p>
+    <p class="c3 c5"><span class="c0"></span></p>
+    <p class="c3"><span>If you found issues on the TMLR website (jmlr.org/tmlr), such as typos or broken links, please
+            report them to the </span><span>github issue tracker</span><sup><a href="#cmnt1"
+                id="cmnt_ref1">[a]</a></sup><span class="c0">.</span></p>
+    <p class="c3 c5"><span class="c0"></span></p>
+    <p class="c3"><span>For any other issues, please contact our editors-in-chief (Hugo Larochelle, Kyunghyun Cho, and
+            Raia Hadsell) by emailing </span><span>editors@jmlr.org</span><sup><a href="#cmnt2"
+                id="cmnt_ref2">[b]</a></sup><span class="c0">.</span></p>
+    <h1 class="c9" id="h.skb23zlpouea"><span>Frequently Asked Questions</span></h1>
+    <h2 class="c4" id="h.4bf5f8p4ashz"><span class="c2">Authors</span></h2>
+    <p class="c3"><span class="c1">Q: How is TMLR different from other machine learning journals such as JMLR?</span>
+    </p>
+    <p class="c3"><span class="c0">A: TMLR provides a similar experience to submitting to a conference &ndash;
+            double-blind, open access reviews, fast turnaround, and novel, unpublished content &ndash; but with a
+            rolling, year-round review process and evaluation criteria that focuses on technical correctness of claims
+            rather than more subjective, editorial measures. Consider submitting shorter manuscripts to TMLR, and
+            submitting extended works which incorporate previously published material to JMLR.</span></p>
+    <p class="c3 c5"><span class="c0"></span></p>
+    <p class="c3"><span class="c1">Q: How long will it take to review my manuscript?</span></p>
+    <p class="c3"><span class="c0">A: TMLR does not make any guarantees, and manuscripts longer than 12 pages are
+            subject to longer timescales, but in general the rolling review process aims to deliver a final decision
+            approximately 8 weeks after submission.</span></p>
+    <h2 class="c4" id="h.xwl9w6pcc4sy"><span>Reviewers</span></h2>
+    <p class="c3"><span class="c1">Q: What if I have seen the paper at a workshop, on arXiv, on Twitter, etc, and I know
+            who the authors are?</span></p>
+    <p class="c3"><span class="c0">A: You should not try to de-anonymize any submission by actively searching for it.
+            However, you may come across it by chance. If this happens, and you believe that it will influence your
+            judgment, please contact the action editor, who will help decide whether you should be replaced with a new
+            reviewer.</span></p>
+    <p class="c3 c5"><span class="c0"></span></p>
+    <h2 class="c4" id="h.82ajlcn8xqwm"><span class="c2">Action Editors</span></h2>
+    <p class="c3"><span class="c1">Q: I am concerned that a submission, which is otherwise acceptable, violates the TMLR
+            ethical guidelines; how should I handle this?</span></p>
+    <p class="c3"><span class="c0">A: Consider whether the submission would be acceptable if the authors added or
+            improved a broader impact statement, and if so, this can be required for the camera-ready version. If the
+            submission carries significant risk of harm, contact the Editors-in-Chief.</span></p>
+    <div class="c11">
+        <p class="c8"><a href="#cmnt_ref1" id="cmnt1">[a]</a><span class="c0">link</span></p>
+    </div>
+    <div class="c11">
+        <p class="c8"><a href="#cmnt_ref2" id="cmnt2">[b]</a><span class="c0">this email is almost&nbsp;identical to the
+                existing editor@jmlr.org, already in use by JMLR. How about tmlr-eic@jmlr.org,&nbsp;tmlr-eics@jmlr.org
+                or tmlr-editors@jmlr.org ?</span></p>
+    </div>
 {% endblock %}

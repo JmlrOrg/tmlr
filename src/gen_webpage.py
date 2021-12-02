@@ -44,6 +44,8 @@ if __name__ == "__main__":
                 "author-guide.html",
                 "ae-guide.html",
                 "faq.html",
-                "editorial-policies.html"
+                "editorial-policies.html",
+                "code.html",
+                "ethics.html"
         ]:
             render_webpage(env, page, base_url)
