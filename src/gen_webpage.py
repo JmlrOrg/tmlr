@@ -3,7 +3,9 @@ import os
 from datetime import datetime
 from glob import glob
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-import utils
+
+import openreview
+from  openreview.journal import Journal
 
 
 YEAR = datetime.today().year
@@ -27,6 +29,52 @@ def render_webpage(env, page, base_url, template_kw={}):
         f.write(out)
 
 
+def get_eics():
+    dev_client = openreview.api.OpenReviewClient(
+        baseurl = 'https://devapi2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
+
+    ids = dev_client.get_group(id=f'.TMLR/Editors_In_Chief').members
+    aes = []
+    for id in ids:
+        if id == '~Fabian_Pedregosa1':
+            # Fabian is managing editor but has EIC priviledges
+            continue
+        kw = {}
+        try:
+            profile = dev_client.get_profile(id)
+            kw['name'] = profile.content['names'][0]['first'] + ' ' + profile.content['names'][0]['last']
+            if 'homepage' in profile.content:
+                kw['url'] = 'http://' + profile.content['homepage']
+            if 'history' in profile.content:
+                kw['affiliation'] = profile.content['history'][0]['institution']['name']
+        except:
+            print(f'profile {id} not found')
+            kw['name'] = id[1:-1].replace('_', ' ')
+        kw['last_name'] = kw['name'].split(' ')[-1]
+        aes.append(kw)
+    aes = sorted(aes, key=lambda d: d['last_name']) 
+    return aes
+
+def get_aes():
+    dev_client = openreview.api.OpenReviewClient(
+        baseurl = 'https://devapi2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
+
+    ids = dev_client.get_group(id=f'.TMLR/Action_Editors').members
+    aes = []
+    for id in ids:
+        kw = {}
+        profile = dev_client.get_profile(id)
+        kw['name'] = profile.content['names'][0]['first'] + ' ' + profile.content['names'][0]['last']
+        if 'homepage' in profile.content:
+            kw['url'] = 'http://' + profile.content['homepage']
+        if 'history' in profile.content:
+            kw['affiliation'] = profile.content['history'][0]['institution']['name']
+        kw['last_name'] = kw['name'].split(' ')[-1]
+        aes.append(kw)
+    aes = sorted(aes, key=lambda d: d['last_name']) 
+    return aes
+
+
 if __name__ == "__main__":
 
         base_url = ""
@@ -35,7 +83,8 @@ if __name__ == "__main__":
             autoescape=select_autoescape(["html", "xml"]),
         )
 
-        render_webpage(env, "index.html", base_url)
+        context = {'editors_in_chief': get_eics(), 'action_editors': get_aes()}
+        render_webpage(env, "index.html", base_url, context)
         for page in [
                 "submissions.html",
                 "contact.html",
@@ -47,4 +96,4 @@ if __name__ == "__main__":
                 "code.html",
                 "ethics.html"
         ]:
-            render_webpage(env, page, base_url)
+            render_webpage(env, page, base_url, context)

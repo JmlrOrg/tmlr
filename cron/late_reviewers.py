@@ -1,9 +1,11 @@
 import openreview
 import datetime
+import os
 from  openreview.journal import Journal
 
 
-dev_client = openreview.api.OpenReviewClient(baseurl = 'https://devapi2.openreview.net', username = 'fabian@mail.com', password = '1234')
+dev_client = openreview.api.OpenReviewClient(
+    baseurl='https://devapi2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
 
 
 reviews = dev_client.get_notes(invitation='.TMLR/Paper.*/-/Review')
