@@ -44,7 +44,7 @@ def get_eics():
             profile = dev_client.get_profile(id)
             kw['name'] = profile.content['names'][0]['first'] + ' ' + profile.content['names'][0]['last']
             if 'homepage' in profile.content:
-                kw['url'] = 'http://' + profile.content['homepage']
+                kw['url'] = profile.content['homepage']
             if 'history' in profile.content:
                 kw['affiliation'] = profile.content['history'][0]['institution']['name']
         except:
@@ -66,7 +66,8 @@ def get_aes():
         profile = dev_client.get_profile(id)
         kw['name'] = profile.content['names'][0]['first'] + ' ' + profile.content['names'][0]['last']
         if 'homepage' in profile.content:
-            kw['url'] = 'http://' + profile.content['homepage']
+            kw['url'] = profile.content['homepage']
+            print(kw['url'])
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
         kw['last_name'] = kw['name'].split(' ')[-1]
