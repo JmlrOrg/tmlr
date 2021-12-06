@@ -84,7 +84,8 @@ if __name__ == "__main__":
             autoescape=select_autoescape(["html", "xml"]),
         )
 
-        context = {'editors_in_chief': get_eics(), 'action_editors': get_aes()}
+        # context = {'editors_in_chief': get_eics(), 'action_editors': get_aes()}
+        context = {}
         render_webpage(env, "index.html", base_url, context)
         for page in [
                 "submissions.html",
