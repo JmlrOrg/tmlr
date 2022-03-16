@@ -31,13 +31,13 @@ def render_webpage(env, page, base_url, template_kw={}):
 
 def get_eics():
     dev_client = openreview.api.OpenReviewClient(
-        baseurl = 'https://devapi2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
+        baseurl = 'https://api.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
 
-    ids = dev_client.get_group(id=f'.TMLR/Editors_In_Chief').members
+    ids = dev_client.get_group(id=f'TMLR/Editors_In_Chief').members
     aes = []
     for id in ids:
         if id == '~Fabian_Pedregosa1':
-            # Fabian is managing editor but has EIC priviledges
+            # Fabian is managing editor but has EIC privileges
             continue
         kw = {}
         try:
@@ -57,9 +57,9 @@ def get_eics():
 
 def get_aes():
     dev_client = openreview.api.OpenReviewClient(
-        baseurl = 'https://devapi2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
+        baseurl = 'https://api.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
 
-    ids = dev_client.get_group(id=f'.TMLR/Action_Editors').members
+    ids = dev_client.get_group(id=f'TMLR/Action_Editors').members
     aes = []
     for id in ids:
         kw = {}
@@ -84,8 +84,8 @@ if __name__ == "__main__":
             autoescape=select_autoescape(["html", "xml"]),
         )
 
-        # context = {'editors_in_chief': get_eics(), 'action_editors': get_aes()}
-        context = {}
+        context = {'editors_in_chief': get_eics(), 'action_editors': get_aes()}
+        # context = {}
         render_webpage(env, "index.html", base_url, context)
         for page in [
                 "submissions.html",
