@@ -1,5 +1,5 @@
-import json
 import os
+import unidecode
 from datetime import datetime
 from glob import glob
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -69,11 +69,12 @@ def get_aes():
             kw['url'] = profile.content['homepage']
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
-        kw['last_name'] = kw['name'].split(' ')[-1]
+        kw['last_name'] = profile.content['names'][0]['last'].capitalize()
         keywords = ', '.join([' '.join(k['keywords']) for k in profile.content['expertise']]) + '.'
         kw['research'] = keywords.capitalize()
         aes.append(kw)
-    aes = sorted(aes, key=lambda d: d['last_name'])
+
+    aes = sorted(aes, key=lambda d: unidecode.unidecode(d['last_name']))
     return aes
 
 
