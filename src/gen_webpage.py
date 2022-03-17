@@ -34,7 +34,7 @@ def get_eics():
         baseurl = 'https://api.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
 
     ids = dev_client.get_group(id=f'TMLR/Editors_In_Chief').members
-    aes = []
+    eics = []
     for id in ids:
         if id == '~Fabian_Pedregosa1':
             # Fabian is managing editor but has EIC privileges
@@ -51,9 +51,9 @@ def get_eics():
             print(f'profile {id} not found')
             kw['name'] = id[1:-1].replace('_', ' ')
         kw['last_name'] = kw['name'].split(' ')[-1]
-        aes.append(kw)
-    aes = sorted(aes, key=lambda d: d['last_name']) 
-    return aes
+        eics.append(kw)
+    eics = sorted(eics, key=lambda d: d['last_name']) 
+    return eics
 
 def get_aes():
     dev_client = openreview.api.OpenReviewClient(
@@ -67,12 +67,12 @@ def get_aes():
         kw['name'] = profile.content['names'][0]['first'] + ' ' + profile.content['names'][0]['last']
         if 'homepage' in profile.content:
             kw['url'] = profile.content['homepage']
-            print(kw['url'])
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
         kw['last_name'] = kw['name'].split(' ')[-1]
+        kw['research'] = ' '.join([' '.join(k['keywords']) for k in profile.content['expertise']])
         aes.append(kw)
-    aes = sorted(aes, key=lambda d: d['last_name']) 
+    aes = sorted(aes, key=lambda d: d['last_name'])
     return aes
 
 
