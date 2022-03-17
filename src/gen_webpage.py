@@ -64,13 +64,14 @@ def get_aes():
     for id in ids:
         kw = {}
         profile = dev_client.get_profile(id)
-        kw['name'] = profile.content['names'][0]['first'] + ' ' + profile.content['names'][0]['last']
+        kw['name'] = profile.content['names'][0]['first'].capitalize() + ' ' + profile.content['names'][0]['last'].capitalize()
         if 'homepage' in profile.content:
             kw['url'] = profile.content['homepage']
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
         kw['last_name'] = kw['name'].split(' ')[-1]
-        kw['research'] = ' '.join([' '.join(k['keywords']) for k in profile.content['expertise']])
+        keywords = ', '.join([' '.join(k['keywords']) for k in profile.content['expertise']]) + '.'
+        kw['research'] = keywords.capitalize()
         aes.append(kw)
     aes = sorted(aes, key=lambda d: d['last_name'])
     return aes
