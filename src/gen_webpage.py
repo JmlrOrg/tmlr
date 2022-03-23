@@ -87,6 +87,7 @@ if __name__ == "__main__":
         )
 
         context = {'editors_in_chief': get_eics(), 'action_editors': get_aes()}
+        # context = {}
         render_webpage(env, "index.html", base_url, context)
         for page in [
                 "submissions.html",
