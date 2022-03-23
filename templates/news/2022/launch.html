@@ -1,0 +1,117 @@
+
+{% extends "base.html" %}
+
+{% block extraheader %}
+<style>
+.framed {
+    border: 1px black dashed;
+    padding: 20px;
+}
+
+h2 {
+    margin-top: 2em;
+}
+
+#TOC{
+    padding: 20px;
+    background-color: #F5F5F5;
+    width: 60%;
+    margin: auto;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h1 class="c5" id="h.wnaqpax5wvcc"><span class="c8">TMLR is now accepting submissions</span></h1>
+<p class="c0 c4"><span class="c1"></span></p>
+<p class="c0"><span>As Editors-in-Chief, Hugo, Kyunghyun, and myself are delighted to announce that the Transactions on
+        Machine Learning Research (TMLR) is now accepting submissions! Some of you have expressed your eagerness to send
+        us your manuscripts during the last 3 months since TMLR was </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://youtu.be/Uc1r1LfJtds&amp;sa=D&amp;source=editors&amp;ust=1648047080667919&amp;usg=AOvVaw2UacUZWM44_tM_LJ1gi448">announced
+            last </a></span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://youtu.be/Uc1r1LfJtds&amp;sa=D&amp;source=editors&amp;ust=1648047080668032&amp;usg=AOvVaw33thtR_hHTShR_oQsu7Dz8">NeurIPS</a></span><span>,
+        and the reward for your patience is that we are now fully prepared: the TMLR </span><span class="c3"><a
+            class="c2"
+            href="https://www.google.com/url?q=http://jmlr.org/tmlr&amp;sa=D&amp;source=editors&amp;ust=1648047080668133&amp;usg=AOvVaw1qzJZRNnS6m-szitl8V_wp">website</a></span><span>&nbsp;has
+    </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://jmlr.org/tmlr/editorial-policies.html&amp;sa=D&amp;source=editors&amp;ust=1648047080668257&amp;usg=AOvVaw3tnEReKMKlqVsHLYcnyS_g">submission
+            guidelines</a></span><span>&nbsp;and </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://jmlr.org/tmlr/submissions.html&amp;sa=D&amp;source=editors&amp;ust=1648047080668395&amp;usg=AOvVaw09dRfEAF3_6AbKXOFJO_uZ">updated
+            LaTeX templates</a></span><span>, the </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=http://openreview.net/group/edit?id%3DTMLR&amp;sa=D&amp;source=editors&amp;ust=1648047080668513&amp;usg=AOvVaw324pXgCAAd_JBWnaNa5iPC">OpenReview
+            site</a></span><span>&nbsp;is tested and ready, and an expert slate of </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://jmlr.org/tmlr/editorial-board.html&amp;sa=D&amp;source=editors&amp;ust=1648047080668609&amp;usg=AOvVaw3Ppsr7p-KTQ75JRTFjPpvy">Action
+            Editors</a></span><span class="c1">&nbsp;and reviewers have been recruited. It&rsquo;s exciting to see TMLR
+        becoming a reality, and we are grateful for all our supporters: the volunteers that have helped give feedback
+        and debug the review process; all of you that have agreed to be AEs or reviewers; our advisors and sponsors; and
+        everyone that has expressed enthusiasm for the project.</span></p>
+<p class="c0 c4"><span class="c1"></span></p>
+<p class="c0"><span>As it grows, we hope that TMLR will become a central resource for the machine learning
+        community&ndash;a continuous thoroughfare of publications and new ideas. TMLR will not have annual issues or
+        proceedings, so we suggest that you keep up to date on new submissions, new accepted papers, and new
+        certifications by signing up for our </span><span>mailing list digest</span><span>&nbsp;(either </span><span
+        class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://groups.google.com/g/tmlr-announce-daily&amp;sa=D&amp;source=editors&amp;ust=1648047080668959&amp;usg=AOvVaw3uRTpqi7UvmwANEtUjf-Pf">daily</a></span><span>&nbsp;or
+    </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://groups.google.com/g/tmlr-announce-weekly&amp;sa=D&amp;source=editors&amp;ust=1648047080669076&amp;usg=AOvVaw2GX6marcrGhXSiuyGsocLF">weekly</a></span><span>)
+        or following our </span><span>twitter feeds</span><span>&nbsp;for </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://twitter.com/TmlrSub&amp;sa=D&amp;source=editors&amp;ust=1648047080669221&amp;usg=AOvVaw2Xp5jRRkOyLbjoeMeISY7Y">new
+            submissions</a></span><span>, </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://twitter.com/TmlrPub&amp;sa=D&amp;source=editors&amp;ust=1648047080669301&amp;usg=AOvVaw1lPZqHo2W0PjfkUhSXtqwR">accepted
+            papers</a></span><span>&nbsp;and </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://twitter.com/TmlrCert&amp;sa=D&amp;source=editors&amp;ust=1648047080669376&amp;usg=AOvVaw0td-uCFz5CkEa01T9kTlNr">certified
+            papers</a></span><span>. If you were not invited to be a reviewer, or were invited but couldn&rsquo;t accept
+        because of other commitments, please keep an eye out for new submissions that are in your area of expertise -
+        you are welcome to contribute and </span><span class="c3"><a class="c2"
+            href="https://www.google.com/url?q=https://jmlr.org/tmlr/contact.html%23solicit&amp;sa=D&amp;source=editors&amp;ust=1648047080669488&amp;usg=AOvVaw32D0QC2kavayc_lzi_j0cf">solicit
+            to review a submission</a></span><span class="c1">, subject to approval by the action editor.</span></p>
+<p class="c0 c4"><span class="c1"></span></p>
+<p class="c0"><span>Looking forward, we hope for a smooth and successful launch of the review process, but of course we
+        are prepared for bumps in the road. In particular, while we have recruited a sizeable pool of over 150 Action
+        Editors and over 1500 reviewers, this will allow us to handle only 150 submissions per month because we have
+        strict quotas on how many papers may be assigned to any AE or reviewer. If this number of submissions is
+        exceeded, it would result in longer review turnarounds or higher quotas, which we have decided is not
+        acceptable. </span><span class="c6 c7">Therefore, in the event that our capacity is reached, TMLR will stop
+        accepting submissions temporarily.</span><span class="c1">&nbsp;We will also be closely monitoring authors with
+        high numbers of submissions, in case it becomes necessary to impose individual limits to maintain fair access
+        for all.</span></p>
+<p class="c0 c4"><span class="c1"></span></p>
+<p class="c0"><span>As the first submissions come through, you will start to see different certifications awarded to
+        accepted papers - </span><span class="c6">Survey</span><span>&nbsp;certifications for papers that include
+        exceptionally thorough or insightful surveys of literature and methods; </span><span
+        class="c6">Reproducibility</span><span>&nbsp;certifications for papers that go beyond simple verification of a
+        previous result and contribute valuable analyses or additional experiments which provide new insights;
+    </span><span class="c6">Featured</span><span>&nbsp;certifications for high quality papers which are selected by the
+        Action Editor - roughly the equivalent of choosing a paper for an oral/spotlight at a top tier conference. There
+        will be more certifications over time: the </span><span class="c6">Outstanding </span><span>certification is
+        awarded by the Editors-In-Chief, approximately on an annual basis, and the </span><span class="c6">Expert
+        Reviewer </span><span class="c1">certification will be awarded to papers authored by very highly rated
+        reviewers, but this will have to wait until we have enough evidence to identify those expert reviewers.</span>
+</p>
+<p class="c0 c4"><span class="c1"></span></p>
+<p class="c0"><span>In the future, we hope to use TMLR certifications for reviewing or publishing special topics or
+        collections, for instance through aligning with a workshop or small conference. The certification would be
+        edited and awarded by a guest editor or committee. If you are </span><span>interested in
+        working</span><span>&nbsp;with TMLR on developing a certification, please </span><span>reach out to
+        us</span><span class="c1">. </span></p>
+<p class="c0 c4"><span class="c1"></span></p>
+<p class="c0"><span>Another development we are considering for the future is to support non-PDF, interactive
+        submissions. Since TMLR has no paper proceedings, is entirely online and isn&rsquo;t bound to paper, we see this
+        as an opportunity to innovate on the format of scientific publications. Our first step is to set up an internal
+        committee tasked with exploring our options and making recommendations adapted to TMLR. Stay tuned for more on
+        this!</span></p>
+<p class="c0 c4"><span class="c1"></span></p>
+<p class="c0"><span>Of course, there may be other rocky areas to navigate in the first few months! We apologize in
+        advance for any issues that come up; do remember that this is a new effort, and be kind to us. Please check the
+    </span><span>FAQ</span><span>&nbsp;regularly whether you are an author, a reviewer, or an Action Editor, and
+    </span><span>contact us</span><span class="c1">&nbsp;if you encounter any issues or have feedback on the journal.
+    </span></p>
+<p class="c0 c4"><span class="c1"></span></p>
+<p class="c0"><span class="c1">Raia Hadsell, with</span></p>
+<p class="c0"><span class="c1">Kyunghyun Cho</span></p>
+<p class="c0"><span class="c1">Hugo Larochelle</span></p>
+<p class="c0 c4"><span class="c1"></span></p>
+<p class="c0 c4"><span class="c1"></span></p>
+
+{% endblock %}
