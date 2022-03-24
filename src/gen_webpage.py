@@ -98,6 +98,7 @@ if __name__ == "__main__":
                 "ae-guide.html",
                 "editorial-policies.html",
                 "code.html",
+                "news/index.html",
                 "news/2022/launch.html",
                 "ethics.html"
         ]:
