@@ -5,6 +5,7 @@ from glob import glob
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import openreview
+from openreview import tools
 from  openreview.journal import Journal
 
 
@@ -30,18 +31,21 @@ def render_webpage(env, page, base_url, template_kw={}):
 
 
 def get_eics():
+    return {}
     dev_client = openreview.api.OpenReviewClient(
         baseurl = 'https://api2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
 
     ids = dev_client.get_group(id=f'TMLR/Editors_In_Chief').members
+    profiles = tools.get_profiles(client, ids)
+
     eics = []
-    for id in ids:
+    for id, profile in zip(ids, profiles):
         if id == '~Fabian_Pedregosa1':
             # Fabian is managing editor but has EIC privileges
             continue
         kw = {}
         try:
-            profile = dev_client.get_profile(id)
+            #profile = dev_client.get_profile(id)
             kw['name'] = profile.content['names'][0]['first'] + ' ' + profile.content['names'][0]['last']
             if 'homepage' in profile.content:
                 kw['url'] = profile.content['homepage']
@@ -56,14 +60,15 @@ def get_eics():
     return eics
 
 def get_aes():
-    dev_client = openreview.api.OpenReviewClient(
+    client = openreview.api.OpenReviewClient(
         baseurl = 'https://api2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
 
-    ids = dev_client.get_group(id=f'TMLR/Action_Editors').members
+    ids = client.get_group(id=f'TMLR/Action_Editors').members
+    # 
+    profiles = tools.get_profiles(client, ids)
     aes = []
-    for id in ids:
+    for profile in profiles:
         kw = {}
-        profile = dev_client.get_profile(id)
         kw['name'] = profile.content['names'][0]['first'].capitalize() + ' ' + profile.content['names'][0]['last'].capitalize()
         if 'homepage' in profile.content:
             kw['url'] = profile.content['homepage']
