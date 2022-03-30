@@ -31,7 +31,6 @@ def render_webpage(env, page, base_url, template_kw={}):
 
 
 def get_eics():
-    return {}
     dev_client = openreview.api.OpenReviewClient(
         baseurl = 'https://api2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
 
@@ -45,7 +44,6 @@ def get_eics():
             continue
         kw = {}
         try:
-            #profile = dev_client.get_profile(id)
             kw['name'] = profile.content['names'][0]['first'] + ' ' + profile.content['names'][0]['last']
             if 'homepage' in profile.content:
                 kw['url'] = profile.content['homepage']
