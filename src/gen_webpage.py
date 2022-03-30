@@ -31,10 +31,10 @@ def render_webpage(env, page, base_url, template_kw={}):
 
 
 def get_eics():
-    dev_client = openreview.api.OpenReviewClient(
+    client = openreview.api.OpenReviewClient(
         baseurl = 'https://api2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
 
-    ids = dev_client.get_group(id=f'TMLR/Editors_In_Chief').members
+    ids = client.get_group(id=f'TMLR/Editors_In_Chief').members
     profiles = tools.get_profiles(client, ids)
 
     eics = []
