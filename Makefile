@@ -6,8 +6,7 @@ clean:
 	rm -rf output
 
 npm: clean
-	mkdir -p output/beta/js
-	mkdir -p output/beta/css
+	mkdir -p output/news/2022
 
 webpage: npm
 	python src/gen_webpage.py
