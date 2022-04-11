@@ -44,7 +44,8 @@ def get_eics():
             continue
         kw = {}
         try:
-            kw['name'] = profile.content['names'][0]['first'] + ' ' + profile.content['names'][0]['last']
+            names = sorted(profile.content['names'], key=lambda d: d.get('preferred', False))[-1]
+            kw['name'] = names['first'] + ' ' + names['last']
             if 'homepage' in profile.content:
                 kw['url'] = profile.content['homepage']
             if 'history' in profile.content:
@@ -67,12 +68,13 @@ def get_aes():
     aes = []
     for profile in profiles:
         kw = {}
-        kw['name'] = profile.content['names'][0]['first'].capitalize() + ' ' + profile.content['names'][0]['last'].capitalize()
+        names = sorted(profile.content['names'], key=lambda d: d.get('preferred', False))[-1]
+        kw['name'] = names['first'].capitalize() + ' ' + names['last'].capitalize()
         if 'homepage' in profile.content:
             kw['url'] = profile.content['homepage']
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
-        kw['last_name'] = profile.content['names'][0]['last'].capitalize()
+        kw['last_name'] = names['last'].capitalize()
         keywords = ', '.join([' '.join(k['keywords']) for k in profile.content['expertise']]) + '.'
         kw['research'] = keywords.capitalize()
         aes.append(kw)
