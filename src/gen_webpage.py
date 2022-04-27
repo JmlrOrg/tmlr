@@ -66,7 +66,7 @@ def get_aes():
     # 
     profiles = tools.get_profiles(client, ids)
     aes = []
-    for profile in profiles:
+    for profile, id in zip(profiles, ids):
         kw = {}
         names = sorted(profile.content['names'], key=lambda d: d.get('preferred', False))[-1]
         kw['name'] = names['first'].capitalize() + ' ' + names['last'].capitalize()
@@ -77,6 +77,8 @@ def get_aes():
         kw['last_name'] = names['last'].capitalize()
         keywords = ', '.join([' '.join(k['keywords']) for k in profile.content['expertise']]) + '.'
         kw['research'] = keywords.capitalize()
+        kw['gscholar'] = profile.content.get('gscholar', None)
+        kw['id'] = profile.id
         aes.append(kw)
 
     aes = sorted(aes, key=lambda d: unidecode.unidecode(d['last_name']))
