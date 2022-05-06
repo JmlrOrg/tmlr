@@ -7,6 +7,7 @@ clean:
 
 npm: clean
 	mkdir -p output/news/2022
+	mkdir -p output/papers/
 
 webpage: npm
 	python src/gen_webpage.py

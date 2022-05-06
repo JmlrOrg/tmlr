@@ -105,22 +105,5 @@ We use the reviewing and publication systems on <a href="https://openreview.net/
 </p>
 
 
-<!-- 
-<h2>Latest papers</h2>
+{% endblock %} 
 
-<ul class="list-papers list-group list-group-flush">
-    {%for paper in info_list %}
-    <li class="list-group-item">
-        <h4><a class="paper-title darkblue" href="{{base_url}}/papers/v{{paper.volume}}/{{paper.id}}.html">{{paper.title_html|safe}}</a></h4>
-        <p><i>{{paper.authors_string}}</i>, {{paper.year}} 
-        </p>
-    </li>
-    {% endfor %}
-    <li class="list-group-item"><a href="{{base_url}}/papers/">See more</a></li>
-</ul>
-{% endblock %} -->
-
-
-{% block sidebar %}
-<img align="left" class="jmlr" src="/img/jmlr.jpg" border="0">
-{% endblock %}

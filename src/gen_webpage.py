@@ -108,6 +108,7 @@ if __name__ == "__main__":
                 "faq.html",
                 "news/index.html",
                 "news/2022/launch.html",
+                "papers/index.html",
                 "ethics.html"
         ]:
             render_webpage(env, page, base_url, context)
