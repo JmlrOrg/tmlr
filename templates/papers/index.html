@@ -8,6 +8,10 @@ div, iframe {
     border-style:none;
 }
 
+.list-group-item {
+    border-top: 0;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
 </style>
 {% endblock %}
 
@@ -15,7 +19,7 @@ div, iframe {
 
 <h1>Latest papers</h1>
 
-
+<!-- 
 <div class="border">
 <a href="#" class="badge badge-primary">Primary</a>
 <a href="#" class="badge badge-secondary">Secondary</a>
@@ -25,6 +29,17 @@ div, iframe {
 <a href="#" class="badge badge-info">Info</a>
 <a href="#" class="badge badge-light">Light</a>
 <a href="#" class="badge badge-dark">Dark</a>
-</div>
+</div> -->
+
+<ul class="list-papers list-group list-group-flush">
+    {%for paper in papers %}
+    <li class="list-group-item">
+        <h4><a class="paper-title darkblue" href="{{paper.pdf}}"><b>{{paper.title|safe}}</b></a></h4>
+        <p><i>{{paper.authors}}</i>, {{paper.year}}  <br>
+            [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/papers/bib/{{paper.id}}.bib">bib</a>]
+        </p>
+    </li>
+    {% endfor %}
+</ul>
 
 {% endblock %}

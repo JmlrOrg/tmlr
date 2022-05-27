@@ -1,19 +1,15 @@
 import os
 import unidecode
 from datetime import datetime
-from glob import glob
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import openreview
 from openreview import tools
-from  openreview.journal import Journal
 
 
 YEAR = datetime.today().year
 
-
-if not os.path.exists("output"):
-    os.mkdir("output")
+os.makedirs("output/papers/bib/", exist_ok=True)
 
 
 def render_webpage(env, page, base_url, template_kw={}):
@@ -32,7 +28,7 @@ def render_webpage(env, page, base_url, template_kw={}):
 
 def get_eics():
     client = openreview.api.OpenReviewClient(
-        baseurl = 'https://api2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
+        baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
 
     ids = client.get_group(id=f'TMLR/Editors_In_Chief').members
     profiles = tools.get_profiles(client, ids)
@@ -44,7 +40,8 @@ def get_eics():
             continue
         kw = {}
         try:
-            names = sorted(profile.content['names'], key=lambda d: d.get('preferred', False))[-1]
+            names = sorted(profile.content['names'], key=lambda d: d.get(
+                'preferred', False))[-1]
             kw['name'] = names['first'] + ' ' + names['last']
             if 'homepage' in profile.content:
                 kw['url'] = profile.content['homepage']
@@ -55,27 +52,31 @@ def get_eics():
             kw['name'] = id[1:-1].replace('_', ' ')
         kw['last_name'] = kw['name'].split(' ')[-1]
         eics.append(kw)
-    eics = sorted(eics, key=lambda d: d['last_name']) 
+    eics = sorted(eics, key=lambda d: d['last_name'])
     return eics
+
 
 def get_aes():
     client = openreview.api.OpenReviewClient(
-        baseurl = 'https://api2.openreview.net', username = os.environ['OR_USER'], password = os.environ['OR_PASS'])
+        baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
 
     ids = client.get_group(id=f'TMLR/Action_Editors').members
-    # 
+    #
     profiles = tools.get_profiles(client, ids)
     aes = []
     for profile, id in zip(profiles, ids):
         kw = {}
-        names = sorted(profile.content['names'], key=lambda d: d.get('preferred', False))[-1]
-        kw['name'] = names['first'].capitalize() + ' ' + names['last'].capitalize()
+        names = sorted(profile.content['names'], key=lambda d: d.get(
+            'preferred', False))[-1]
+        kw['name'] = names['first'].capitalize() + ' ' + \
+            names['last'].capitalize()
         if 'homepage' in profile.content:
             kw['url'] = profile.content['homepage']
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
         kw['last_name'] = names['last'].capitalize()
-        keywords = ', '.join([' '.join(k['keywords']) for k in profile.content['expertise']]) + '.'
+        keywords = ', '.join([' '.join(k['keywords'])
+                             for k in profile.content['expertise']]) + '.'
         kw['research'] = keywords.capitalize()
         kw['gscholar'] = profile.content.get('gscholar', None)
         kw['id'] = profile.id
@@ -85,30 +86,68 @@ def get_aes():
     return aes
 
 
+def get_papers():
+    client = openreview.api.OpenReviewClient(
+        baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
+
+    accepted = client.get_notes(invitation='TMLR/-/Accepted')
+    papers = []
+    for s in accepted:
+        paper = {}
+        paper['id'] = s.forum
+        paper['title'] = s.content['title']['value']
+        paper['openreview'] = f"https://openreview.net/forum?id={s.forum}"
+        paper['pdf'] = f"https://openreview.net/pdf?id={s.forum}"
+        paper['bibtex'] = s.content['_bibtex']['value']
+
+        # there's a bug in the bib produced by openreview, in that it
+        # says Transactions *of* instead of Transactions *on*
+        paper['bibtex'] = paper['bibtex'].replace(
+            'Transactions of',
+            'Transactions on')
+        paper['authors'] = ', '.join(s.content['authors']['value'])
+        paper['year'] = datetime.fromtimestamp(s.mdate / 1000.).year
+        papers.append(paper)
+    return papers
+
+
+def gen_bibtex(env, context):
+    """Generate bibtex."""
+    for p in context['papers']:
+        paper_id = p['id']
+        with open(os.path.join("output", "papers", "bib", f"{paper_id}.bib"), "w") as f:
+            f.write(p['bibtex'])
+
+
+
 if __name__ == "__main__":
 
-        base_url = ""
-        env = Environment(
-            loader=FileSystemLoader("templates"),
-            autoescape=select_autoescape(["html", "xml"]),
-        )
+    base_url = ""
+    env = Environment(
+        loader=FileSystemLoader("templates"),
+        autoescape=select_autoescape(["html", "xml"]),
+    )
 
-        context = {'editors_in_chief': get_eics(), 'action_editors': get_aes()}
-        # context = {}
-        render_webpage(env, "index.html", base_url, context)
-        for page in [
-                "submissions.html",
-                "contact.html",
-                "editorial-board.html",
-                "reviewer-guide.html",
-                "author-guide.html",
-                "ae-guide.html",
-                "editorial-policies.html",
-                "code.html",
-                "faq.html",
-                "news/index.html",
-                "news/2022/launch.html",
-                "papers/index.html",
-                "ethics.html"
-        ]:
-            render_webpage(env, page, base_url, context)
+    context = {
+        'editors_in_chief': get_eics(),
+        'action_editors': get_aes(),
+        'papers': get_papers()
+        }
+    gen_bibtex(env, context)
+    render_webpage(env, "index.html", base_url, context)
+    for page in [
+            "submissions.html",
+            "contact.html",
+            "editorial-board.html",
+            "reviewer-guide.html",
+            "author-guide.html",
+            "ae-guide.html",
+            "editorial-policies.html",
+            "code.html",
+            "faq.html",
+            "news/index.html",
+            "news/2022/launch.html",
+            "papers/index.html",
+            "ethics.html"
+    ]:
+        render_webpage(env, page, base_url, context)
