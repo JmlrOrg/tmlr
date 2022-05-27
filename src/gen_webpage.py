@@ -106,7 +106,9 @@ def get_papers():
             'Transactions of',
             'Transactions on')
         paper['authors'] = ', '.join(s.content['authors']['value'])
-        paper['year'] = datetime.fromtimestamp(s.mdate / 1000.).year
+        date = datetime.fromtimestamp(s.mdate / 1000.)
+        paper['year'] = date.year
+        paper['month'] = date.strftime("%B")
         papers.append(paper)
     return papers
 
