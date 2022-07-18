@@ -111,8 +111,6 @@ def get_papers():
         paper['month'] = date.strftime("%B")
         if 'code' in s.content:
             paper['code'] = s.content['code']['value']
-        else:
-            import pdb; pdb.set_trace()
         papers.append(paper)
     return papers
 
