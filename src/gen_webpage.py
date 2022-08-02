@@ -109,6 +109,14 @@ def get_papers():
         date = datetime.fromtimestamp(s.mdate / 1000.)
         paper['year'] = date.year
         paper['month'] = date.strftime("%B")
+        paper['certifications'] = []
+        certifications = s.content['certifications']['value']
+        if 'Survey Certification' in certifications:
+            paper['survey_certification'] = True
+            paper['certifications'].append('survey')
+        if 'Reproducibility Certification' in certifications:
+            paper['reproducibility_certification'] = True
+            paper['certifications'].append('reproducibility')
         if 'code' in s.content:
             paper['code'] = s.content['code']['value']
         papers.append(paper)

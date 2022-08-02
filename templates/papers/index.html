@@ -16,6 +16,7 @@ div, iframe {
     margin-top: 1em;
 }
 </style>
+
 {% endblock %}
 
 {% block content %}
@@ -38,10 +39,16 @@ div, iframe {
 
 <ul class="list-papers list-group list-group-flush">
     {%for paper in papers %}
-    <li class="item">
+    <li class="item {{paper.certifications}}">
         <h4><a class="paper-title darkblue" href="{{paper.pdf}}"><b>{{paper.title|safe}}</b></a></h4>
         <p><i>{{paper.authors}}</i>, {{paper.month}} {{paper.year}}  <br>
             [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/tmlr/papers/bib/{{paper.id}}.bib">bib</a>] {% if paper.code %}[<a href="{{paper.code}}">code</a>]{% endif %}
+            {%if paper.certifications|length %} <br> Certifications:  
+                {% if paper.survey_certification %} <a href="#" class="badge badge badge-primary" data-toggle="tooltip" data-placement="top" title="Paper that provides an exceptionally thorough or insightful survey of the topic.">Survey</a>
+                {% endif %}
+                {% if paper.reproducibility_certification %} <a href="#" class="badge badge badge-secondary" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond simple verification, this paper contributes significant added value through additional baselines, analysis, ablations, or insights.">Reproducibility</a>
+                {% endif %}
+            {% endif %}
         </p>
     </li>
     {% endfor %}
