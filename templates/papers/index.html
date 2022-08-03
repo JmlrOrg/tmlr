@@ -15,6 +15,23 @@ div, iframe {
     margin-left: 3em;
     margin-top: 1em;
 }
+
+.badge a{
+    color: white;
+}
+
+.badge a:hover{
+    text-decoration: none;
+}
+
+.hovered {
+    filter: brightness(85%);
+}
+
+.framed {
+    border: 1px rgba(0,0,0,.125) solid;
+    padding: 20px;
+}
 </style>
 
 {% endblock %}
@@ -22,8 +39,6 @@ div, iframe {
 {% block content %}
 
 <h1>Accepted papers</h1>
-
-<br><br>
 
 <!-- 
 <div class="border">
@@ -37,16 +52,27 @@ div, iframe {
 <a href="#" class="badge badge-dark">Dark</a>
 </div> -->
 
+<p class="framed"  style="font-size: 1.2em; margin: 2em">
+    <b>Certifications</b><br>
+<span id="surveybadge" class="badge badge badge-primary" >
+    <a href="#" id="surveybutton" data-toggle="tooltip" data-placement="top" title="Papers that provides an exceptionally thorough or insightful survey of the topic." data-trigger="hover">Survey</a> 
+</span>
+
+<span id="reproducibilitybadge" class="badge badge badge-secondary" >
+    <a href="#" id="reproducibilitybutton" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond simple verification, this paper contributes significant added value through additional baselines, analysis, ablations, or insights." data-trigger="hover">Reproducibility</a> 
+</span>
+</p>
+
 <ul class="list-papers list-group list-group-flush">
     {%for paper in papers %}
-    <li class="item {{paper.certifications}}">
+    <li class="item{%if paper.certifications|length %}{% for c in paper.certifications %} {{c}} {% endfor %}{% else %} nocertificate {% endif %}">
         <h4><a class="paper-title darkblue" href="{{paper.pdf}}"><b>{{paper.title|safe}}</b></a></h4>
         <p><i>{{paper.authors}}</i>, {{paper.month}} {{paper.year}}  <br>
             [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/tmlr/papers/bib/{{paper.id}}.bib">bib</a>] {% if paper.code %}[<a href="{{paper.code}}">code</a>]{% endif %}
             {%if paper.certifications|length %} <br> Certifications:  
-                {% if paper.survey_certification %} <a href="#" class="badge badge badge-primary" data-toggle="tooltip" data-placement="top" title="Paper that provides an exceptionally thorough or insightful survey of the topic.">Survey</a>
+                {% if paper.survey_certification %} <a href="#" class="badge badge badge-primary" data-toggle="tooltip" data-placement="top" title="Papers that provides an exceptionally thorough or insightful survey of the topic." data-trigger="click">Survey</a>
                 {% endif %}
-                {% if paper.reproducibility_certification %} <a href="#" class="badge badge badge-secondary" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond simple verification, this paper contributes significant added value through additional baselines, analysis, ablations, or insights.">Reproducibility</a>
+                {% if paper.reproducibility_certification %} <a href="#" class="badge badge badge-secondary" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond simple verification, this paper contributes significant added value through additional baselines, analysis, ablations, or insights." data-trigger="click">Reproducibility</a>
                 {% endif %}
             {% endif %}
         </p>
@@ -54,4 +80,40 @@ div, iframe {
     {% endfor %}
 </ul>
 
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    var surveyClicked = false;
+    var reproducibilityClicked = false;
+
+    $('#surveybutton').click( function(){
+        if (surveyClicked == false) {
+            surveyClicked = true;
+            $('.item').hide();
+        $('.survey').show();
+        $('#surveybadge').addClass("hovered");
+        }
+        else{
+            $('.item').show();
+            surveyClicked = false;
+            $('#surveybadge').removeClass("hovered");
+        }
+    });
+    $('#reproducibilitybutton').click( function(){
+        if (reproducibilityClicked == false) {
+            reproducibilityClicked = true;
+            $('.item').hide();
+        $('.reproducibility').show();
+        $('#reproducibilitybadge').addClass("hovered");
+        }
+        else{
+            $('.item').show();
+            reproducibilityClicked = false;
+            $('#reproducibilitybadge').removeClass("hovered")
+        }
+    })
+
+    </script>
+<br><br>
 {% endblock %}
