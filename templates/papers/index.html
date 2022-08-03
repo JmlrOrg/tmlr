@@ -25,7 +25,7 @@ div, iframe {
 }
 
 .hovered {
-    filter: brightness(85%);
+    filter: brightness(120%);
 }
 
 .framed {
@@ -42,11 +42,11 @@ div, iframe {
 
 <!-- 
 <div class="border">
-<a href="#" class="badge badge-primary">Primary</a>
-<a href="#" class="badge badge-secondary">Secondary</a>
+<a href="#" class="badge badge-info">Primary</a>
+<a href="#" class="badge badge-success">Secondary</a>
 <a href="#" class="badge badge-success">Success</a>
 <a href="#" class="badge badge-danger">Danger</a>
-<a href="#" class="badge badge-warning">Warning</a>
+<a href="#" class="badge badge-success">Warning</a>
 <a href="#" class="badge badge-info">Info</a>
 <a href="#" class="badge badge-light">Light</a>
 <a href="#" class="badge badge-dark">Dark</a>
@@ -54,13 +54,17 @@ div, iframe {
 
 <p class="framed"  style="font-size: 1.2em; margin: 2em">
     <b>Certifications</b><br>
-<span id="surveybadge" class="badge badge badge-primary" >
+<span id="surveybadge" class="badge badge badge-info" >
     <a href="#" id="surveybutton" data-toggle="tooltip" data-placement="top" title="Papers that provides an exceptionally thorough or insightful survey of the topic." data-trigger="hover">Survey</a> 
 </span>
 
-<span id="reproducibilitybadge" class="badge badge badge-secondary" >
+<span id="reproducibilitybadge" class="badge badge badge-success" >
     <a href="#" id="reproducibilitybutton" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond simple verification, this paper contributes significant added value through additional baselines, analysis, ablations, or insights." data-trigger="hover">Reproducibility</a> 
 </span>
+<!-- <span  class="badge badge badge-light" >
+    <a href="#" id="clearselection" >clear </a> 
+</span> -->
+<!-- <a id="clearselection" href="#">&times;</a> -->
 </p>
 
 <ul class="list-papers list-group list-group-flush">
@@ -70,9 +74,9 @@ div, iframe {
         <p><i>{{paper.authors}}</i>, {{paper.month}} {{paper.year}}  <br>
             [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/tmlr/papers/bib/{{paper.id}}.bib">bib</a>] {% if paper.code %}[<a href="{{paper.code}}">code</a>]{% endif %}
             {%if paper.certifications|length %} <br> Certifications:  
-                {% if paper.survey_certification %} <a href="#" class="badge badge badge-primary" data-toggle="tooltip" data-placement="top" title="Papers that provides an exceptionally thorough or insightful survey of the topic." data-trigger="click">Survey</a>
+                {% if paper.survey_certification %} <a href="#" class="badge badge badge-info" data-toggle="tooltip" data-placement="top" title="Papers that provides an exceptionally thorough or insightful survey of the topic." data-trigger="click">Survey</a>
                 {% endif %}
-                {% if paper.reproducibility_certification %} <a href="#" class="badge badge badge-secondary" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond simple verification, this paper contributes significant added value through additional baselines, analysis, ablations, or insights." data-trigger="click">Reproducibility</a>
+                {% if paper.reproducibility_certification %} <a href="#" class="badge badge badge-success" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond simple verification, this paper contributes significant added value through additional baselines, analysis, ablations, or insights." data-trigger="click">Reproducibility</a>
                 {% endif %}
             {% endif %}
         </p>
@@ -86,32 +90,37 @@ div, iframe {
 <script type="text/javascript">
     var surveyClicked = false;
     var reproducibilityClicked = false;
+    var focus = null;
 
-    $('#surveybutton').click( function(){
-        if (surveyClicked == false) {
-            surveyClicked = true;
-            $('.item').hide();
-        $('.survey').show();
-        $('#surveybadge').addClass("hovered");
-        }
-        else{
+    $('.badge-info').click( function(){
+        if (focus == this) {
             $('.item').show();
-            surveyClicked = false;
+            focus = null;
             $('#surveybadge').removeClass("hovered");
+        } else {
+            $('.item').hide();
+            $('.survey').show();
+            $('.framed .badge').removeClass("hovered");
+            $('#surveybadge').addClass("hovered");
+            focus = this;
         }
     });
-    $('#reproducibilitybutton').click( function(){
-        if (reproducibilityClicked == false) {
-            reproducibilityClicked = true;
-            $('.item').hide();
-        $('.reproducibility').show();
-        $('#reproducibilitybadge').addClass("hovered");
-        }
-        else{
+    $('.badge-success').click( function(){
+        if (focus == this) {
             $('.item').show();
-            reproducibilityClicked = false;
-            $('#reproducibilitybadge').removeClass("hovered")
+            focus = null;
+            $('#reproducibilitybadge').removeClass("hovered");
+        } else {
+            $('.item').hide();
+            $('.reproducibility').show();
+            $('.framed .badge').removeClass("hovered");
+            $('#reproducibilitybadge').addClass("hovered");
+            focus = this;
         }
+    })
+
+    $("#clearselection").click(function() {
+        $('.item').show()
     })
 
     </script>
