@@ -59,7 +59,7 @@ div, iframe {
 </span>
 
 <span id="reproducibilitybadge" class="badge badge badge-success" >
-    <a href="#" id="reproducibilitybutton" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond simple verification, this paper contributes significant added value through additional baselines, analysis, ablations, or insights." data-trigger="hover">Reproducibility</a> 
+    <a href="#" id="reproducibilitybutton" data-toggle="tooltip" data-placement="top" title="Papers whose primary purpose is reproduction of other published work. Beyond verification, these papers add value through additional baselines, analysis, ablations, or insights." data-trigger="hover">Reproducibility</a> 
 </span>
 <!-- <span  class="badge badge badge-light" >
     <a href="#" id="clearselection" >clear </a> 
@@ -74,9 +74,9 @@ div, iframe {
         <p><i>{{paper.authors}}</i>, {{paper.month}} {{paper.year}}  <br>
             [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/tmlr/papers/bib/{{paper.id}}.bib">bib</a>] {% if paper.code %}[<a href="{{paper.code}}">code</a>]{% endif %}
             {%if paper.certifications|length %} <br> Certifications:  
-                {% if paper.survey_certification %} <a href="#" class="badge badge badge-info" data-toggle="tooltip" data-placement="top" title="Papers that provides an exceptionally thorough or insightful survey of the topic." data-trigger="click">Survey</a>
+                {% if paper.survey_certification %} <a href="#" class="badge badge badge-info" data-toggle="tooltip" data-placement="top" title="Paper that provides an exceptionally thorough or insightful survey of the topic." data-trigger="click">Survey</a>
                 {% endif %}
-                {% if paper.reproducibility_certification %} <a href="#" class="badge badge badge-success" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond simple verification, this paper contributes significant added value through additional baselines, analysis, ablations, or insights." data-trigger="click">Reproducibility</a>
+                {% if paper.reproducibility_certification %} <a href="#" class="badge badge badge-success" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond verification, this paper add value through additional baselines, analysis, ablations, or insights." data-trigger="click">Reproducibility</a>
                 {% endif %}
             {% endif %}
         </p>
