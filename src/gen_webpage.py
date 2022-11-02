@@ -153,6 +153,7 @@ if __name__ == "__main__":
             "editorial-board.html",
             "reviewer-guide.html",
             "author-guide.html",
+            "acceptance-criteria.html",
             "ae-guide.html",
             "editorial-policies.html",
             "code.html",
