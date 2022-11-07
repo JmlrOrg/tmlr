@@ -117,6 +117,9 @@ def get_papers():
         if 'Reproducibility Certification' in certifications:
             paper['reproducibility_certification'] = True
             paper['certifications'].append('reproducibility')
+        if 'Featured Certification' in certifications:
+            paper['featured_certification'] = True
+            paper['certifications'].append('featured')
         if 'code' in s.content:
             paper['code'] = s.content['code']['value']
         papers.append(paper)
