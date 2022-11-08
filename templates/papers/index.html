@@ -32,6 +32,10 @@ div, iframe {
     border: 1px rgba(0,0,0,.125) solid;
     padding: 20px;
 }
+
+.badge-warning{ 
+    color: #fff;
+}
 </style>
 
 {% endblock %}
@@ -73,9 +77,11 @@ div, iframe {
         <p><i>{{paper.authors}}</i>, {{paper.month}} {{paper.year}}  <br>
             [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/tmlr/papers/bib/{{paper.id}}.bib">bib</a>] {% if paper.code %}[<a href="{{paper.code}}">code</a>]{% endif %}
             {%if paper.certifications|length %} <br> Certifications:  
-                {% if paper.survey_certification %} <a href="#" class="badge badge badge-info" data-toggle="tooltip" data-placement="top" title="Paper that provides an exceptionally thorough or insightful survey of the topic." data-trigger="click">Survey</a>
+                {% if paper.survey_certification %} <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top" title="Paper that provides an exceptionally thorough or insightful survey of the topic." data-trigger="click">Survey</a>
                 {% endif %}
-                {% if paper.reproducibility_certification %} <a href="#" class="badge badge badge-success" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond verification, this paper add value through additional baselines, analysis, ablations, or insights." data-trigger="click">Reproducibility</a>
+                {% if paper.reproducibility_certification %} <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond verification, this paper add value through additional baselines, analysis, ablations, or insights." data-trigger="click">Reproducibility</a>
+                {% endif %}
+                {% if paper.featured_certification %} <a href="#" class="badge badge-warning" data-toggle="tooltip" data-placement="top" title="Papers of high quality that present contributions which are novel, clearly explained, and well supported with evidence, theory, or analysis" data-trigger="click">Featured</a>
                 {% endif %}
             {% endif %}
         </p>
@@ -114,6 +120,19 @@ div, iframe {
             $('.reproducibility').show();
             $('.framed .badge').removeClass("hovered");
             $('#reproducibilitybadge').addClass("hovered");
+            focus = this;
+        }
+    })
+    $('.badge-warning').click( function(){
+        if (focus == this) {
+            $('.item').show();
+            focus = null;
+            $('#featuredbadge').removeClass("hovered");
+        } else {
+            $('.item').hide();
+            $('.featured').show();
+            $('.framed .badge').removeClass("hovered");
+            $('#featuredbadge').addClass("hovered");
             focus = this;
         }
     })
