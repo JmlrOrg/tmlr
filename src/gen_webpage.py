@@ -64,7 +64,7 @@ def get_aes():
     #
     profiles = tools.get_profiles(client, ids)
     aes = []
-    for profile, id in zip(profiles, ids):
+    for profile in profiles:
         kw = {}
         names = sorted(profile.content['names'], key=lambda d: d.get(
             'preferred', False))[-1]
@@ -111,8 +111,12 @@ def get_papers():
         paper['authors'] = ', '.join(s.content['authors']['value'])
         if hasattr(s, 'pdate'):
             date = datetime.fromtimestamp(s.pdate / 1000.)
+            paper['intdate'] = s.pdate
         else:
-            date = datetime.fromtimestamp(s.mdate / 1000.)
+            decisions = client.get_all_notes(
+                invitation=f"TMLR/Paper{s.number}/-/Decision", details='directReplies', sort='mdate', limit=1)
+            date = datetime.fromtimestamp(decisions[0].mdate / 1000.)
+            paper['intdate'] = decisions[0].mdate
 
         paper['year'] = date.year
         paper['month'] = date.strftime("%B")
@@ -130,6 +134,7 @@ def get_papers():
         if 'code' in s.content:
             paper['code'] = s.content['code']['value']
         papers.append(paper)
+    sorted(papers, key=lambda d: d['intdate'])
     return papers
 
 
