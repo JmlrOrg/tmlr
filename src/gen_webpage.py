@@ -90,7 +90,7 @@ def get_papers():
     client = openreview.api.OpenReviewClient(
         baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
 
-    accepted = client.get_notes(invitation='TMLR/-/Accepted', sort='mdate')
+    accepted = client.get_all_notes(invitation='TMLR/-/Accepted', sort='mdate')
     papers = []
     for s in accepted:
         paper = {}
