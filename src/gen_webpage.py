@@ -90,7 +90,10 @@ def get_papers():
     client = openreview.api.OpenReviewClient(
         baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
 
-    accepted = client.get_all_notes(invitation='TMLR/-/Accepted', sort='mdate')
+    accepted = tools.iterget_notes(client,
+        invitation='TMLR/-/Accepted',
+        sort='mdate')
+    # accepted = client.get_all_notes(invitation='TMLR/-/Accepted', sort='mdate')
     papers = []
     for s in accepted:
         paper = {}
@@ -106,7 +109,11 @@ def get_papers():
             'Transactions of',
             'Transactions on')
         paper['authors'] = ', '.join(s.content['authors']['value'])
-        date = datetime.fromtimestamp(s.mdate / 1000.)
+        if hasattr(s, 'pdate'):
+            date = datetime.fromtimestamp(s.pdate / 1000.)
+        else:
+            date = datetime.fromtimestamp(s.mdate / 1000.)
+
         paper['year'] = date.year
         paper['month'] = date.strftime("%B")
         paper['certifications'] = []
