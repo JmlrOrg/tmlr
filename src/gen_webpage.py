@@ -92,7 +92,7 @@ def get_papers():
 
     accepted = tools.iterget_notes(client,
         invitation='TMLR/-/Accepted',
-        sort='mdate')
+        sort='pdate:desc')
     # accepted = client.get_all_notes(invitation='TMLR/-/Accepted', sort='mdate')
     papers = []
     for s in accepted:
@@ -109,14 +109,8 @@ def get_papers():
             'Transactions of',
             'Transactions on')
         paper['authors'] = ', '.join(s.content['authors']['value'])
-        if hasattr(s, 'pdate'):
-            date = datetime.fromtimestamp(s.pdate / 1000.)
-            paper['intdate'] = s.pdate
-        else:
-            decisions = client.get_all_notes(
-                invitation=f"TMLR/Paper{s.number}/-/Decision", details='directReplies', sort='mdate', limit=1)
-            date = datetime.fromtimestamp(decisions[0].mdate / 1000.)
-            paper['intdate'] = decisions[0].mdate
+        date = datetime.fromtimestamp(s.pdate / 1000.)
+        paper['intdate'] = s.pdate
 
         paper['year'] = date.year
         paper['month'] = date.strftime("%B")
