@@ -128,7 +128,7 @@ def get_papers():
         if 'code' in s.content:
             paper['code'] = s.content['code']['value']
         papers.append(paper)
-    sorted(papers, key=lambda d: d['intdate'])
+    #sorted(papers, key=lambda d: d['intdate'])
     return papers
 
 
