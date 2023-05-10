@@ -75,8 +75,11 @@ def get_aes():
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
         kw['last_name'] = names['last'].capitalize()
-        keywords = ', '.join([' '.join(k['keywords'])
-                             for k in profile.content['expertise']]) + '.'
+        if 'expertise' in profile.content:
+            keywords = ', '.join([' '.join(k['keywords'])
+                                for k in profile.content['expertise']]) + '.'
+        else:
+            keywords = ''
         kw['research'] = keywords.capitalize()
         kw['gscholar'] = profile.content.get('gscholar', None)
         kw['id'] = profile.id
