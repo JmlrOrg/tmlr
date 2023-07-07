@@ -153,16 +153,26 @@ def get_papers():
         paper['month'] = date.strftime("%B")
 
         paper['certifications'] = []
-        # certifications = s.content['certifications']['value']
-        # if 'Survey Certification' in certifications:
-        #     paper['survey_certification'] = True
-        #     paper['certifications'].append('survey')
-        # if 'Reproducibility Certification' in certifications:
-        #     paper['reproducibility_certification'] = True
-        #     paper['certifications'].append('reproducibility')
-        # if 'Featured Certification' in certifications:
-        #     paper['featured_certification'] = True
-        #     paper['certifications'].append('featured')
+        try:
+            certifications = s.content['certifications']['value']
+        except:
+            certifications = {}
+
+        if 'Survey Certification' in certifications:
+            paper['survey_certification'] = True
+            paper['certifications'].append('survey')
+        if 'Reproducibility Certification' in certifications:
+            paper['reproducibility_certification'] = True
+            paper['certifications'].append('reproducibility')
+        if 'Featured Certification' in certifications:
+            paper['featured_certification'] = True
+            paper['certifications'].append('featured')
+        if 'Expert Certification' in certifications:
+            paper['expert_certification'] = True
+            paper['certifications'].append('expert')
+        if 'Outstanding Certification' in certifications:
+            paper['outstanding_certification'] = True
+            paper['certifications'].append('outstanding')
 
         if 'code' in s.content:
             paper['code'] = s.content['code']['value']
