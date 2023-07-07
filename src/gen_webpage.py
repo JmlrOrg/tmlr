@@ -1,4 +1,5 @@
 import os
+import pdb
 import unidecode
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -89,6 +90,39 @@ def get_aes():
     return aes
 
 
+def get_expert_reviewers():
+    client = openreview.api.OpenReviewClient(
+        baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
+
+    ids = client.get_group(id=f'TMLR/Expert_Reviewers').members
+    #
+    profiles = tools.get_profiles(client, ids)
+    expert_reviewers = []
+    for profile in profiles:
+        kw = {}
+        names = sorted(profile.content['names'], key=lambda d: d.get(
+            'preferred', False))[-1]
+        kw['name'] = names['first'].capitalize() + ' ' + \
+            names['last'].capitalize()
+        if 'homepage' in profile.content:
+            kw['url'] = profile.content['homepage']
+        if 'history' in profile.content:
+            kw['affiliation'] = profile.content['history'][0]['institution']['name']
+        kw['last_name'] = names['last'].capitalize()
+        if 'expertise' in profile.content:
+            keywords = ', '.join([' '.join(k['keywords'])
+                                for k in profile.content['expertise']]) + '.'
+        else:
+            keywords = ''
+        kw['research'] = keywords.capitalize()
+        kw['gscholar'] = profile.content.get('gscholar', None)
+        kw['id'] = profile.id
+        expert_reviewers.append(kw)
+
+    expert_reviewers = sorted(expert_reviewers, key=lambda d: unidecode.unidecode(d['last_name']))
+    return expert_reviewers
+
+
 def get_papers():
     client = openreview.api.OpenReviewClient(
         baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
@@ -117,19 +151,22 @@ def get_papers():
 
         paper['year'] = date.year
         paper['month'] = date.strftime("%B")
+
         paper['certifications'] = []
-        certifications = s.content['certifications']['value']
-        if 'Survey Certification' in certifications:
-            paper['survey_certification'] = True
-            paper['certifications'].append('survey')
-        if 'Reproducibility Certification' in certifications:
-            paper['reproducibility_certification'] = True
-            paper['certifications'].append('reproducibility')
-        if 'Featured Certification' in certifications:
-            paper['featured_certification'] = True
-            paper['certifications'].append('featured')
+        # certifications = s.content['certifications']['value']
+        # if 'Survey Certification' in certifications:
+        #     paper['survey_certification'] = True
+        #     paper['certifications'].append('survey')
+        # if 'Reproducibility Certification' in certifications:
+        #     paper['reproducibility_certification'] = True
+        #     paper['certifications'].append('reproducibility')
+        # if 'Featured Certification' in certifications:
+        #     paper['featured_certification'] = True
+        #     paper['certifications'].append('featured')
+
         if 'code' in s.content:
             paper['code'] = s.content['code']['value']
+
         papers.append(paper)
     #sorted(papers, key=lambda d: d['intdate'])
     return papers
@@ -155,8 +192,9 @@ if __name__ == "__main__":
     context = {
         'editors_in_chief': get_eics(),
         'action_editors': get_aes(),
+        'expert_reviewers': get_expert_reviewers(),
         'papers': get_papers()
-        }
+    }
     gen_bibtex(env, context)
     render_webpage(env, "index.html", base_url, context)
     for page in [
@@ -173,6 +211,7 @@ if __name__ == "__main__":
             "news/index.html",
             "news/2022/launch.html",
             "papers/index.html",
-            "ethics.html"
+            "ethics.html",
+            "expert-reviewers.html"
     ]:
         render_webpage(env, page, base_url, context)
