@@ -129,8 +129,9 @@ def get_papers():
 
     accepted = tools.iterget_notes(client,
         invitation='TMLR/-/Accepted',
-        sort='pdate:desc')
-    # accepted = client.get_all_notes(invitation='TMLR/-/Accepted', sort='mdate')
+        sort='pdate:desc'
+    )
+
     papers = []
     for s in accepted:
         paper = {}
@@ -152,6 +153,8 @@ def get_papers():
         paper['year'] = date.year
         paper['month'] = date.strftime("%B")
 
+        # Certifications
+        # --------------------------
         paper['certifications'] = []
         try:
             certifications = s.content['certifications']['value']
@@ -173,6 +176,23 @@ def get_papers():
         if 'Outstanding Certification' in certifications:
             paper['outstanding_certification'] = True
             paper['certifications'].append('outstanding')
+        # --------------------------
+
+        # Event certifications
+        # --------------------------
+        paper['event_certifications'] = []
+        try:
+            event_certifications = s.content['event_certifications']['value']
+        except:
+            event_certifications = {}
+
+        if event_certifications:
+            paper['event_certification'] = True
+            # if 'CoLLAs 2023' in event_certifications:
+            #     paper['collas_certification'] = True
+            paper['which_event'] = ', '.join(event_certifications)
+        # --------------------------
+
 
         if 'code' in s.content:
             paper['code'] = s.content['code']['value']
@@ -222,6 +242,6 @@ if __name__ == "__main__":
             "news/2022/launch.html",
             "papers/index.html",
             "ethics.html",
-            "expert-reviewers.html"
+            "expert-reviewers.html",
     ]:
         render_webpage(env, page, base_url, context)
