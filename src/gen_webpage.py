@@ -188,6 +188,7 @@ def get_papers():
 
         if event_certifications:
             paper['event_certification'] = True
+            paper['certifications'].append('event')
             # if 'CoLLAs 2023' in event_certifications:
             #     paper['collas_certification'] = True
             paper['which_event'] = ', '.join(event_certifications)
