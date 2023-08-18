@@ -26,7 +26,11 @@ div, iframe {
 
 .badge-light {
     color: black;
-    border: 1px solid rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(0, 0, 0, 0.9);
+}
+
+.badge-light a {
+    color: black;
 }
 
 .hovered {
@@ -109,7 +113,7 @@ div, iframe {
                 {% endif %}
                 {% if paper.outstanding_certification %} <a href="#" class="badge badge-dark" data-toggle="tooltip" data-placement="top" title="Outstanding paper" data-trigger="click">Outstanding</a>
                 {% endif %}
-                {% if paper.event_certification %} <a href="#" class="badge badge-light" data-toggle="tooltip" data-placement="top" title="Event Certification" data-trigger="click">Event</a>
+                {% if paper.event_certification %} <a href="#" class="badge badge-light" data-toggle="tooltip" data-placement="top" title="Event Certification" data-trigger="click">Event: {{ paper.which_event }}</a>
                 {% endif %}
             {% endif %}
         </p>
