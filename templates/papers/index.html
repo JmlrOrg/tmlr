@@ -94,7 +94,7 @@ div, iframe {
 
 <ul class="list-papers list-group list-group-flush">
     {%for paper in papers %}
-    <li class="item{%if paper.certifications|length %}{% for c in paper.certifications %} {{c}} {% endfor %} {% endif %}">
+     <li class="item{%if paper.certifications|length %}{% for c in paper.certifications %} {{c}} {% endfor %}{% else %} nocertificate {% endif %}">
         <h4><a class="paper-title darkblue" href="{{paper.pdf}}"><b>{{paper.title|safe}}</b></a></h4>
         <p><i>{{paper.authors}}</i>, {{paper.month}} {{paper.year}}  <br>
             [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/tmlr/papers/bib/{{paper.id}}.bib">bib</a>] {% if paper.code %}[<a href="{{paper.code}}">code</a>]{% endif %}
