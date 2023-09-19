@@ -16,12 +16,21 @@ div, iframe {
     margin-top: 1em;
 }
 
-.badge a{
+.badge a {
     color: white;
 }
 
-.badge a:hover{
+.badge a:hover {
     text-decoration: none;
+}
+
+.badge-light {
+    color: black;
+    border: 2px solid rgba(0, 0, 0, 0.9);
+}
+
+.badge-light a {
+    color: black;
 }
 
 .hovered {
@@ -57,27 +66,39 @@ div, iframe {
 </div> -->
 
 <div class="framed"  style="margin: 2em">
-    <p><b>Certifications</b>. Accepted TMLR papers can be awareded a number of certifications by the action editors or editors-in-chief of TMLR. The current list of awarded certificates is (click on the badges to see the papers with the certification):</p>
+    <p><b>Certifications</b>. Accepted TMLR papers can be awarded a number of certifications by the action editors or editors-in-chief of TMLR. The current list of awarded certificates is (click on the badges to see the papers with the certification):</p>
     <ul>
-        <li><span id="featuredbadge" class="badge badge badge-warning" >
+        <li><span id="featuredbadge" class="badge badge-warning" >
             <a href="#" id="featuredbutton" data-toggle="tooltip" data-placement="top" title="Papers of very high quality that present contributions which are novel, clearly explained, and well supported with evidence, theory, or analysis" data-trigger="hover">Featured</a> 
         </span> This certification may be awarded to papers that are very high quality. These papers present significant contributions which are novel, clearly explained, and well supported with evidence, theory, or analysis. If this paper was submitted to a top-tier conference, it would likely be presented as an oral/spotlight.</li>
         <li>
-            <span id="reproducibilitybadge" class="badge badge badge-success" >
+            <span id="reproducibilitybadge" class="badge badge-success" >
                 <a href="#" id="reproducibilitybutton" data-toggle="tooltip" data-placement="top" title="Reproduction of previously published work. Beyond verification, these papers add value through additional baselines, analysis, ablations, or insights." data-trigger="hover">Reproducibility</a> 
             </span> This is awarded to papers whose primary purpose is reproduction of other published work. Beyond simple verification, the paper must contribute significant added value through additional baselines, analysis, ablations, or insights.
             Survey Certification. Papers that not only meet the criteria for acceptance but also provide an exceptionally thorough or insightful survey of the topic or approach may be awarded this certification.
         </li>
         <li>
-            <span id="surveybadge" class="badge badge badge-info" >
-                <a href="#" id="surveybutton" data-toggle="tooltip" data-placement="top" title="Exceptionally thorough or insightful survey of the topic." data-trigger="hover">Survey</a></span> The Survey Certificate is awareded to papers that not only meet the criteria for acceptance but also provide an exceptionally thorough or insightful survey of the topic or approach may be awarded this certification.    
+            <span id="surveybadge" class="badge badge-info" >
+                <a href="#" id="surveybutton" data-toggle="tooltip" data-placement="top" title="Exceptionally thorough or insightful survey of the topic." data-trigger="hover">Survey</a></span> The Survey Certificate is awarded to papers that not only meet the criteria for acceptance but also provide an exceptionally thorough or insightful survey of the topic or approach may be awarded this certification.
+        </li>
+        <li>
+            <span id="expertbadge" class="badge badge-danger" >
+                <a href="#" id="expertbutton" data-toggle="tooltip" data-placement="top" title="Papers whose authors include at least one TMLR Expert Reviewer" data-trigger="hover">Expert</a></span> The Expert Reviewer Certificate is awarded to papers whose authors include at least one TMLR Expert Reviewer.
+        </li>
+        <li>
+            <span id="outstandingbadge" class="badge badge-dark" >
+                <a href="#" id="outstandingbutton" data-toggle="tooltip" data-placement="top" title="TMLR Outstanding Paper" data-trigger="hover">Outstanding</a></span> The editorial board of TMLR jointly awards this certification to papers which are deemed to be exceptionally high quality and broadly significant for the field. The certification may be given well after the paper's initial publication in TMLR (a year or more), and is equivalent to a best paper award at a top-tier conference.
+        </li>
+        <li>
+            <span id="eventbadge" class="badge badge-light" >
+                <a href="#" id="eventbutton" data-toggle="tooltip" data-placement="top" title="TMLR Event Certification" data-trigger="hover">Event</a></span> TMLR papers that are presented at other conferences.
         </li>
     </ul>
 </div>
 
 <ul class="list-papers list-group list-group-flush">
     {%for paper in papers %}
-    <li class="item{%if paper.certifications|length %}{% for c in paper.certifications %} {{c}} {% endfor %}{% else %} nocertificate {% endif %}">
+     <li class="item{%if paper.certifications|length %}{% for c in paper.certifications %} {{c}} {% endfor %}{% else %} nocertificate {% endif %}">
         <h4><a class="paper-title darkblue" href="{{paper.pdf}}"><b>{{paper.title|safe}}</b></a></h4>
         <p><i>{{paper.authors}}</i>, {{paper.month}} {{paper.year}}  <br>
             [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/tmlr/papers/bib/{{paper.id}}.bib">bib</a>] {% if paper.code %}[<a href="{{paper.code}}">code</a>]{% endif %}
@@ -87,6 +108,12 @@ div, iframe {
                 {% if paper.reproducibility_certification %} <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Paper whose primary purpose is reproduction of other published work. Beyond verification, this paper add value through additional baselines, analysis, ablations, or insights." data-trigger="click">Reproducibility</a>
                 {% endif %}
                 {% if paper.featured_certification %} <a href="#" class="badge badge-warning" data-toggle="tooltip" data-placement="top" title="Papers of high quality that present contributions which are novel, clearly explained, and well supported with evidence, theory, or analysis" data-trigger="click">Featured</a>
+                {% endif %}
+                {% if paper.expert_certification %} <a href="#" class="badge badge-danger" data-toggle="tooltip" data-placement="top" title="Papers whose authors include at least one TMLR Expert Reviewer" data-trigger="click">Written by Expert Reviewer</a>
+                {% endif %}
+                {% if paper.outstanding_certification %} <a href="#" class="badge badge-dark" data-toggle="tooltip" data-placement="top" title="Outstanding paper" data-trigger="click">Outstanding</a>
+                {% endif %}
+                {% if paper.event_certification %} <a href="#" class="badge badge-light" data-toggle="tooltip" data-placement="top" title="Event Certification" data-trigger="click">Event: {{ paper.which_event }}</a>
                 {% endif %}
             {% endif %}
         </p>
@@ -138,6 +165,45 @@ div, iframe {
             $('.featured').show();
             $('.framed .badge').removeClass("hovered");
             $('#featuredbadge').addClass("hovered");
+            focus = this;
+        }
+    })
+    $('.badge-danger').click( function(){
+        if (focus == this) {
+            $('.item').show();
+            focus = null;
+            $('#expertbadge').removeClass("hovered");
+        } else {
+            $('.item').hide();
+            $('.expert').show();
+            $('.framed .badge').removeClass("hovered");
+            $('#expertbadge').addClass("hovered");
+            focus = this;
+        }
+    })
+    $('.badge-dark').click( function(){
+        if (focus == this) {
+            $('.item').show();
+            focus = null;
+            $('#outstandingbadge').removeClass("hovered");
+        } else {
+            $('.item').hide();
+            $('.outstanding').show();
+            $('.framed .badge').removeClass("hovered");
+            $('#outstandingbadge').addClass("hovered");
+            focus = this;
+        }
+    })
+    $('.badge-light').click( function(){
+        if (focus == this) {
+            $('.item').show();
+            focus = null;
+            $('#eventbadge').removeClass("hovered");
+        } else {
+            $('.item').hide();
+            $('.event').show();
+            $('.framed .badge').removeClass("hovered");
+            $('#eventbadge').addClass("hovered");
             focus = this;
         }
     })
