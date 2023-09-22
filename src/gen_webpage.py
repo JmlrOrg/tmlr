@@ -183,6 +183,11 @@ def get_papers():
         paper['event_certifications'] = []
         try:
             event_certifications = s.content['event_certifications']['value']
+            for i in range(len(event_certifications)):
+                if 'AutoML/2023' in event_certifications[i]:
+                    event_certifications[i] = 'AutoML 2023'
+                if 'CoLLAs/2023' in event_certifications[i]:
+                    event_certifications[i] = 'CoLLAs 2023'
         except:
             event_certifications = {}
 
