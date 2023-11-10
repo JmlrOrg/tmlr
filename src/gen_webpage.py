@@ -69,13 +69,13 @@ def get_aes():
         kw = {}
         names = sorted(profile.content['names'], key=lambda d: d.get(
             'preferred', False))[-1]
-        kw['name'] = names['first'].capitalize() + ' ' + \
-            names['last'].capitalize()
+        # kw['name'] = names['first'] + ' ' + names['last']
+        kw['name'] = names['fullname']
         if 'homepage' in profile.content:
             kw['url'] = profile.content['homepage']
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
-        kw['last_name'] = names['last'].capitalize()
+        kw['last_name'] = names['last']
         if 'expertise' in profile.content:
             keywords = ', '.join([' '.join(k['keywords'])
                                 for k in profile.content['expertise']]) + '.'
@@ -102,13 +102,14 @@ def get_expert_reviewers():
         kw = {}
         names = sorted(profile.content['names'], key=lambda d: d.get(
             'preferred', False))[-1]
-        kw['name'] = names['first'].capitalize() + ' ' + \
-            names['last'].capitalize()
+        # kw['name'] = names['first'].capitalize() + ' ' + \
+        #     names['last'].capitalize()
+        kw['name'] = names['fullname']
         if 'homepage' in profile.content:
             kw['url'] = profile.content['homepage']
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
-        kw['last_name'] = names['last'].capitalize()
+        kw['last_name'] = names['last']
         if 'expertise' in profile.content:
             keywords = ', '.join([' '.join(k['keywords'])
                                 for k in profile.content['expertise']]) + '.'
