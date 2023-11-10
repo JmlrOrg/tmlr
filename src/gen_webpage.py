@@ -86,7 +86,7 @@ def get_aes():
         kw['id'] = profile.id
         aes.append(kw)
 
-    aes = sorted(aes, key=lambda d: unidecode.unidecode(d['last_name']))
+    aes = sorted(aes, key=lambda d: unidecode.unidecode(d['last_name'].capitalize()))
     return aes
 
 
@@ -120,7 +120,7 @@ def get_expert_reviewers():
         kw['id'] = profile.id
         expert_reviewers.append(kw)
 
-    expert_reviewers = sorted(expert_reviewers, key=lambda d: unidecode.unidecode(d['last_name']))
+    expert_reviewers = sorted(expert_reviewers, key=lambda d: unidecode.unidecode(d['last_name'].capitalize()))
     return expert_reviewers
 
 
