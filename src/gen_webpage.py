@@ -12,6 +12,11 @@ YEAR = datetime.today().year
 
 os.makedirs("output/papers/bib/", exist_ok=True)
 
+client = openreview.api.OpenReviewClient(
+    baseurl='https://api2.openreview.net',
+    username=os.environ['OR_USER'],
+    password=os.environ['OR_PASS']
+)
 
 def render_webpage(env, page, base_url, template_kw={}):
     with open(os.path.join("output", page), "w") as f:
@@ -28,39 +33,31 @@ def render_webpage(env, page, base_url, template_kw={}):
 
 
 def get_eics():
-    client = openreview.api.OpenReviewClient(
-        baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
-
     ids = client.get_group(id=f'TMLR/Editors_In_Chief').members
     profiles = tools.get_profiles(client, ids)
 
     eics = []
-    for id, profile in zip(ids, profiles):
-        if id == '~Fabian_Pedregosa1':
-            # Fabian is managing editor but has EIC privileges
-            continue
+    for profile in profiles:
         kw = {}
         try:
-            names = sorted(profile.content['names'], key=lambda d: d.get(
-                'preferred', False))[-1]
+            names = sorted(
+                profile.content['names'],
+                key=lambda d: d.get('preferred', False)
+            )[-1]
             kw['name'] = names['first'] + ' ' + names['last']
             if 'homepage' in profile.content:
                 kw['url'] = profile.content['homepage']
             if 'history' in profile.content:
                 kw['affiliation'] = profile.content['history'][0]['institution']['name']
+            kw['last_name'] = kw['name'].split(' ')[-1]
+            eics.append(kw)
         except:
-            print(f'profile {id} not found')
-            kw['name'] = id[1:-1].replace('_', ' ')
-        kw['last_name'] = kw['name'].split(' ')[-1]
-        eics.append(kw)
+            print('Issue with profile {}'.format(profile))
     eics = sorted(eics, key=lambda d: d['last_name'])
     return eics
 
 
 def get_aes():
-    client = openreview.api.OpenReviewClient(
-        baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
-
     ids = client.get_group(id=f'TMLR/Action_Editors').members
     #
     profiles = tools.get_profiles(client, ids)
@@ -91,9 +88,6 @@ def get_aes():
 
 
 def get_expert_reviewers():
-    client = openreview.api.OpenReviewClient(
-        baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
-
     ids = client.get_group(id=f'TMLR/Expert_Reviewers').members
     #
     profiles = tools.get_profiles(client, ids)
@@ -125,9 +119,6 @@ def get_expert_reviewers():
 
 
 def get_papers():
-    client = openreview.api.OpenReviewClient(
-        baseurl='https://api2.openreview.net', username=os.environ['OR_USER'], password=os.environ['OR_PASS'])
-
     accepted = tools.iterget_notes(client,
         invitation='TMLR/-/Accepted',
         sort='pdate:desc'
