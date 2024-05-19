@@ -72,12 +72,19 @@ def get_aes():
             kw['url'] = profile.content['homepage']
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
-        kw['last_name'] = names['last']
         if 'expertise' in profile.content:
             keywords = ', '.join([' '.join(k['keywords'])
                                 for k in profile.content['expertise']]) + '.'
         else:
             keywords = ''
+
+        if 'first' not in names or 'last' not in names:
+            name_parts = names['fullname'].rsplit(' ', 1)
+            names['first'] = name_parts[0]
+            names['last'] = name_parts[1]
+
+        kw['last_name'] = names['last']
+
         kw['research'] = keywords.capitalize()
         kw['gscholar'] = profile.content.get('gscholar', None)
         kw['id'] = profile.id
@@ -103,12 +110,19 @@ def get_expert_reviewers():
             kw['url'] = profile.content['homepage']
         if 'history' in profile.content:
             kw['affiliation'] = profile.content['history'][0]['institution']['name']
-        kw['last_name'] = names['last']
         if 'expertise' in profile.content:
             keywords = ', '.join([' '.join(k['keywords'])
                                 for k in profile.content['expertise']]) + '.'
         else:
             keywords = ''
+
+        if 'first' not in names or 'last' not in names:
+            name_parts = names['fullname'].rsplit(' ', 1)
+            names['first'] = name_parts[0]
+            names['last'] = name_parts[1]
+
+        kw['last_name'] = names['last']
+
         kw['research'] = keywords.capitalize()
         kw['gscholar'] = profile.content.get('gscholar', None)
         kw['id'] = profile.id
