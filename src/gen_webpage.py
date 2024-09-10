@@ -94,8 +94,8 @@ def get_aes():
     return aes
 
 
-def get_expert_reviewers():
-    ids = client.get_group(id=f'TMLR/Expert_Reviewers').members
+def get_expert_reviewers(expert_reviewers_group):
+    ids = client.get_group(id=expert_reviewers_group).members
     #
     profiles = tools.get_profiles(client, ids)
     expert_reviewers = []
@@ -234,7 +234,8 @@ if __name__ == "__main__":
     context = {
         'editors_in_chief': get_eics(),
         'action_editors': get_aes(),
-        'expert_reviewers': get_expert_reviewers(),
+        'expert_reviewers_2023': get_expert_reviewers('TMLR/Expert_Reviewers/2023'),
+        'expert_reviewers_2024': get_expert_reviewers('TMLR/Expert_Reviewers/2024'),
         'papers': get_papers()
     }
     gen_bibtex(env, context)
