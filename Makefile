@@ -27,4 +27,4 @@ upload:
 
 
 circle_upload:
-	aws s3 sync --region eu-west-1 --acl public-read --exclude "js/*" output/output/ s3://jmlr.org/tmlr/
+	aws s3 sync --region us-east-1 --acl public-read --exclude "js/*" output/output/ s3://jmlr.org/tmlr/
