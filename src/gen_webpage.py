@@ -288,7 +288,7 @@ if __name__ == "__main__":
         'action_editors': get_aes(),
         'expert_reviewers_2023': get_expert_reviewers('TMLR/Expert_Reviewers/2023'),
         'expert_reviewers_2024': get_expert_reviewers('TMLR/Expert_Reviewers/2024'),
-        'reviewers': get_all_reviewers(),
+        # 'reviewers': get_all_reviewers(),
         'papers': get_papers()
     }
     gen_bibtex(env, context)
@@ -308,6 +308,6 @@ if __name__ == "__main__":
             "news/2022/launch.html",
             "papers/index.html",
             "ethics.html",
-            "reviewers.html",
+            # "reviewers.html",
     ]:
         render_webpage(env, page, base_url, context)
