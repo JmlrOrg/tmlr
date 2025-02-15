@@ -8,5 +8,5 @@ google-auth-httplib2
 google-auth-oauthlib
 PyPDF2
 pytest-sugar
-openreview-py
+openreview-py==1.27.3
 unidecode
