@@ -1,6 +1,7 @@
 import os
 import pdb
 import unidecode
+from collections import defaultdict
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -132,6 +133,57 @@ def get_expert_reviewers(expert_reviewers_group):
     return expert_reviewers
 
 
+def get_all_reviewers():
+    all_groups = { g.id: g for g in client.get_all_groups(prefix='TMLR/Paper') }
+
+    num_failures = 0
+    reviewers_in_year = defaultdict(set)
+
+    submissions = client.get_all_notes(invitation='TMLR/-/Submission', details='replies')
+    for submission in submissions:
+      replies = [openreview.api.Note.from_json(reply) for reply in submission.details['replies']]
+      reviews = [r for r in replies if r.invitations[0].endswith('/-/Review')]
+      date_submitted = datetime.fromtimestamp(submission.cdate / 1000.0)
+
+      if reviews:
+        for review in reviews:
+          try:
+            signature = review.signatures[0]
+            reviewer_id = all_groups[signature].members[0]
+            reviewers_in_year[date_submitted.year].add(reviewer_id)
+          except:
+            print('Failure in all_groups!')
+            num_failures += 1
+
+    # Get reviewer names
+    # ----------------------------------------------------------------
+    reviewer_names_in_year = {}
+    for year in reviewers_in_year:
+        reviewers = []
+        profiles = tools.get_profiles(client, reviewers_in_year[year])
+        for profile in profiles:
+            kw = {}
+            names = sorted(
+                profile.content['names'],
+                key=lambda d: d.get('preferred', False)
+            )[-1]
+            kw['name'] = names['fullname']
+
+            if 'first' not in names or 'last' not in names:
+                name_parts = names['fullname'].rsplit(' ', 1)
+                names['first'] = name_parts[0]
+                names['last'] = name_parts[1]
+
+            kw['last_name'] = names['last']
+            if kw not in reviewers:
+                reviewers.append(kw)
+
+        reviewers_sorted = sorted(reviewers, key=lambda d: unidecode.unidecode(d['last_name'].capitalize()))
+        reviewer_names_in_year[year] = [r['name'] for r in reviewers_sorted]
+
+    return reviewer_names_in_year
+
+
 def get_papers():
     accepted = tools.iterget_notes(client,
         invitation='TMLR/-/Accepted',
@@ -236,6 +288,7 @@ if __name__ == "__main__":
         'action_editors': get_aes(),
         'expert_reviewers_2023': get_expert_reviewers('TMLR/Expert_Reviewers/2023'),
         'expert_reviewers_2024': get_expert_reviewers('TMLR/Expert_Reviewers/2024'),
+        'reviewers': get_all_reviewers(),
         'papers': get_papers()
     }
     gen_bibtex(env, context)
@@ -255,6 +308,6 @@ if __name__ == "__main__":
             "news/2022/launch.html",
             "papers/index.html",
             "ethics.html",
-            "expert-reviewers.html",
+            "reviewers.html",
     ]:
         render_webpage(env, page, base_url, context)

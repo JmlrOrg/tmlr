@@ -12,16 +12,16 @@ $(document).ready(function(){
 </script>
 
 <style>
-    .editors li {
+    .expert-reviewers li {
         margin-bottom: 20px;
     }
-    .editors .name {
+    .expert-reviewers .name {
         font-weight: bold;
     }
-    .editors a {
+    .expert-reviewers a {
         text-decoration: none;
     }
-    .editors .research {
+    .expert-reviewers .research {
         display: block;
         font-size: 88%;
         color: #555;
@@ -35,15 +35,26 @@ $(document).ready(function(){
       margin-left: 2em;
       margin-bottom: 0.5em;
     }
+
+    div.reviewer-chunk {
+      margin-bottom: 40px;
+    }
+
+    h2.year {
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
     </style>
 {% endblock %}
 
 {% block content %}
+<!-- <div class="container"> -->
 <h1>TMLR Expert Reviewers</h1>
+<br>
 
-  <h2>2024</h2>
+  <h2 class="year">2024 Expert Reviewers</h2>
 
-  <ul class="editors">{% for e in expert_reviewers_2024 %}
+  <ul class="expert-reviewers">{% for e in expert_reviewers_2024 %}
     <li><a class="name" href="{{ e.url }}">{{ e.name }}</a>, <span class='affiliation'>{{ e.affiliation }}</span>. <span class="research">{{e.research}}</span>
       <span class="research">[<a href="https://openreview.net/profile?id={{e.id}}">OpenReview</a>] {% if e.gscholar %} [<a href="{{e.gscholar}}">Google Scholar</a>]{% endif %}</span>
     {% endfor %}
@@ -51,13 +62,33 @@ $(document).ready(function(){
   <br><br>
 
 
-  <h2>2023</h2>
+  <h2 class="year">2023 Expert Reviewers</h2>
 
-  <ul class="editors">{% for e in expert_reviewers_2023 %}
+  <ul class="expert-reviewers">{% for e in expert_reviewers_2023 %}
     <li><a class="name" href="{{ e.url }}">{{ e.name }}</a>, <span class='affiliation'>{{ e.affiliation }}</span>. <span class="research">{{e.research}}</span>
       <span class="research">[<a href="https://openreview.net/profile?id={{e.id}}">OpenReview</a>] {% if e.gscholar %} [<a href="{{e.gscholar}}">Google Scholar</a>]{% endif %}</span>
     {% endfor %}
   </ul>
   <br><br>
 
+
+<h1>TMLR Reviewers</h1>
+<br>
+
+{% for year in reviewers %}
+  <h2 class="year">{{ year }} Reviewers</h2>
+  <div class="row">
+    {% for name in reviewers[year] %}
+      {% if loop.index0 % 10 == 0 %}
+        <div class="col-sm-6 col-md-4 col-lg-3 reviewer-chunk">
+      {% endif %}
+        {{ name }} <br>
+      {% if loop.index % 10 == 0 %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endfor %}
+
+<!-- </div> -->
 {% endblock %}
