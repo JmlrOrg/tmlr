@@ -29,31 +29,62 @@
 
 <link rel="alternate" type="application/rss+xml" href="/jmlr.xml" title="JMLR RSS">
 <style type="text/css">
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
 h1, h2 {
     font-weight: bold;
 }
 
-a {text-decoration:none;color:#3030a0}
+a {
+    text-decoration: none;
+    color: #3090C0;
+}
 
 #fixed {
-    position: absolute;
+    position: fixed;
+    overflow: auto;
     top: 0;
-    left: 0;
-    width: 8em;
+    left: 20px;
+    width: 11em;
     height: 100%;
 }
 
-body{
-    font-family: 'Times New Roman', Times, serif;
+ul#nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-body > #fixed {
-/*     position: fixed; */
+ul#nav li {
+  margin: 0;
 }
+
+ul#nav li a {
+  display: block;
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-decoration: none;
+}
+
+ul#nav li a:hover {
+  color: #000000;
+}
+
+body{
+    font-size: 18px;
+}
+
 #content {
     margin-top: 1em;
-    margin-left: 10em;
-    margin-right: 0.5em;
+    margin-left: 12em;
+    margin-right: 1em;
 }
 img.jmlr {
     width: 7em;
@@ -83,44 +114,30 @@ ul li {
 
   <div id="fixed">
   <br>
-  <a align="right" href="/tmlr/index.html" target=_top><img style="margin-bottom: 1em" align="right" class="jmlr" src="/tmlr/img/tmlr.jpg" border="0"></a> 
-  <p><br><br><br>
-  <p align="right"> <a href="/tmlr/index.html"> Home </a> 
-
-    <p align="right"> <a href="/tmlr/papers/"> Papers</a> 
-
-  <p align="right"> <a href="/tmlr/submissions.html"> Submissions</a> 
-
-  <p align="right"> <a href="/tmlr/editorial-policies.html"> Submission guidelines and editorial policies</a> 
-
-  <p align="right"> <a href="/tmlr/acceptance-criteria.html"> Acceptance criteria</a> 
-
-  <p align="right"> <a href="/tmlr/author-guide.html"> Author guidelines</a> 
-
-  <p align="right"> <a href="/tmlr/reviewer-guide.html"> Reviewer guidelines</a> 
-
-  <p align="right"> <a href="/tmlr/ae-guide.html"> Action Editor guidelines</a> 
-
-  <p align="right"> <a href="/tmlr/ethics.html"> Ethics guidelines</a> 
-
-  <p align="right"> <a href="/tmlr/code.html"> Code of conduct</a> 
-
-  <p align="right"> <a href="/tmlr/editorial-board.html"> Editorial board</a>
-
-  <p align="right"> <a href="/tmlr/reviewers.html"> Reviewers</a>
-
-  <p align="right"> <a href="/tmlr/contact.html"> Contact</a></p>
-
-  <p align="right"> <a href="/tmlr/faq.html"> Frequently Asked Questions</a></p>
-
-  <p align="right"> <a href="/"> Journal of Machine Learning Research (JMLR)</a></p>
-
- <p align="right"> <a href="https://proceedings.mlr.press/"> Proceedings of Machine Learning Research (PMLR)</a></p>
-
- <p align="right"> <a href="https://data.mlr.press/"> Data-centric Machine Learning Research (DMLR)</a></p>
-
+  <a align="center" href="/tmlr/index.html" target=_top><img style="margin-bottom: 1em" align="center" class="jmlr" src="/tmlr/img/tmlr.jpg" border="0"></a> 
+  <br>
+  <ul id="nav">
+    <li><a href="/tmlr/index.html">Home</a></li>
+    <li><a href="/tmlr/papers/">Papers</a></li>
+    <li><a href="/tmlr/submissions.html">Submissions</a></li>
+    <li><a href="/tmlr/editorial-policies.html">Submission Guidelines and Editorial Policies</a></li>
+    <li><a href="/tmlr/acceptance-criteria.html">Acceptance Criteria</a></li>
+    <li><a href="/tmlr/author-guide.html">Author Guidelines</a></li>
+    <li><a href="/tmlr/reviewer-guide.html">Reviewer Guidelines</a></li>
+    <li><a href="/tmlr/ae-guide.html">Action Editor Guidelines</a></li>
+    <li><a href="/tmlr/ethics.html">Ethics Guidelines</a></li>
+    <li><a href="/tmlr/code.html">Code of Conduct</a></li>
+    <li><a href="/tmlr/editorial-board.html">Editorial Board</a></li>
+    <li><a href="/tmlr/reviewers.html">Reviewers</a></li>
+    <li><a href="/tmlr/contact.html">Contact</a></li>
+    <li><a href="/tmlr/faq.html">FAQs</a></li>
+    <li><a href="/">Journal of Machine Learning Research (JMLR)</a></li>
+    <li><a href="https://proceedings.mlr.press/">Proceedings of Machine Learning Research (PMLR)</a></li>
+    <li><a href="https://data.mlr.press/">Data-centric Machine Learning Research (DMLR)</a></li>
+  </ul>
   </div>
 
+<div class="container">
 <div id="content">
     {% block content %}
 
@@ -146,5 +163,6 @@ ul li {
 <a style="font-size: 0" rel="me" href="https://sigmoid.social/@tmlrsub">Mastodon</a>
 <a style="font-size: 0" rel="me" href="https://sigmoid.social/@tmlrpub">Mastodon</a>
 <a style="font-size: 0" rel="me" href="https://sigmoid.social/@tmlrcert">Mastodon</a>
+</div>
 </body>
 </html>
