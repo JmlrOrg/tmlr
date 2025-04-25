@@ -1,5 +1,7 @@
 import os
+import re
 import pdb
+import requests
 import unidecode
 from collections import defaultdict
 from datetime import datetime
@@ -184,11 +186,27 @@ def get_all_reviewers():
     return reviewer_names_in_year
 
 
+def load_html_from_url(url):
+  try:
+    response = requests.get(url)
+    response.raise_for_status()
+    return response.text
+  except requests.exceptions.RequestException as e:
+    print(f'Error fetching URL: {e}')
+    return None
+
+
 def get_papers():
     accepted = tools.iterget_notes(client,
         invitation='TMLR/-/Accepted',
         sort='pdate:desc'
     )
+
+    inf_conf_url = 'https://tmlr.infinite-conf.org/index.html'
+    html_content = load_html_from_url(inf_conf_url)
+    if html_content:
+      paper_ids_with_videos = re.findall(r'"paper_pages/(\w+).html"', html_content)
+      paper_ids_with_videos = set(paper_ids_with_videos)
 
     papers = []
     for s in accepted:
@@ -260,6 +278,9 @@ def get_papers():
 
         if 'code' in s.content:
             paper['code'] = s.content['code']['value']
+
+        if s.forum in paper_ids_with_videos:
+            paper['video'] = f'https://tmlr.infinite-conf.org/paper_pages/{s.forum}.html'
 
         papers.append(paper)
     #sorted(papers, key=lambda d: d['intdate'])

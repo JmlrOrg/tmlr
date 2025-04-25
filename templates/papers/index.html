@@ -100,7 +100,9 @@ div, iframe {
      <li class="item{%if paper.certifications|length %}{% for c in paper.certifications %} {{c}} {% endfor %}{% else %} nocertificate {% endif %}">
         <h4><a class="paper-data-bs-title darkblue" href="{{paper.pdf}}"><b>{{paper.title|safe}}</b></a></h4>
         <p><i>{{paper.authors}}</i>, {{paper.month}} {{paper.year}}  <br>
-            [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/tmlr/papers/bib/{{paper.id}}.bib">bib</a>] {% if paper.code %}[<a href="{{paper.code}}">code</a>]{% endif %}
+            [<a href="{{paper.openreview}}">openreview</a>] [<a href="{{paper.pdf}}">pdf</a>] [<a href="/tmlr/papers/bib/{{paper.id}}.bib">bib</a>]
+            {% if paper.code %}[<a href="{{paper.code}}">code</a>]{% endif %}
+            {% if paper.video %}[<a href="{{paper.video}}">video</a>]{% endif %}
             {%if paper.certifications|length %} <br> Certifications:  
                 {% if paper.survey_certification %} <a href="#" class="badge text-bg-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Paper that provides an exceptionally thorough or insightful survey of the topic." data-trigger="click">Survey</a>
                 {% endif %}
