@@ -309,6 +309,7 @@ if __name__ == "__main__":
         'action_editors': get_aes(),
         'expert_reviewers_2023': get_expert_reviewers('TMLR/Expert_Reviewers/2023'),
         'expert_reviewers_2024': get_expert_reviewers('TMLR/Expert_Reviewers/2024'),
+        'expert_reviewers_2025': get_expert_reviewers('TMLR/Expert_Reviewers/2025'),
         # 'reviewers': get_all_reviewers(),
         'papers': get_papers()
     }
