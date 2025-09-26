@@ -330,6 +330,6 @@ if __name__ == "__main__":
             "news/2022/launch.html",
             "papers/index.html",
             "ethics.html",
-            # "reviewers.html",
+            "reviewers.html",
     ]:
         render_webpage(env, page, base_url, context)
