@@ -89,6 +89,10 @@ div, iframe {
                 <a href="#" id="outstandingbutton" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="TMLR Outstanding Paper">Outstanding</a></span> The editorial board of TMLR jointly awards this certification to papers which are deemed to be exceptionally high quality and broadly significant for the field. The certification may be given well after the paper's initial publication in TMLR (a year or more), and is equivalent to a best paper award at a top-tier conference.
         </li>
         <li>
+            <span id="j2cbadge" class="badge text-bg-primary" >
+                <a href="#" id="j2cbutton" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="TMLR J2C Paper">Journal to Conference</a></span> Awarded to publications based on responses by teh AE and reviewers, to the question of whether the work would be appropriate for the joint NeurIPS/ICLR/ICML Journal-to-Conference Track. Receiving this selective certification (or the Outstanding/Featured Certifications) enables an opportunity to present in this track at one of these participating conferences. See the <a href="https://neurips.cc/public/JournalToConference">track's website</a> for details and the complete list of eligibility criteria.
+        </li>
+        <li>
             <span id="eventbadge" class="badge text-bg-light" >
                 <a href="#" id="eventbutton" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="TMLR Event Certification">Event</a></span> TMLR papers that are presented at other conferences.
         </li>
@@ -113,6 +117,8 @@ div, iframe {
                 {% if paper.expert_certification %} <a href="#" class="badge text-bg-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Papers whose authors include at least one TMLR Expert Reviewer" data-trigger="click">Written by Expert Reviewer</a>
                 {% endif %}
                 {% if paper.outstanding_certification %} <a href="#" class="badge text-bg-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Outstanding paper" data-trigger="click">Outstanding</a>
+                {% endif %}
+                {% if paper.j2c_certification %} <a href="#" class="badge text-bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Journal to Conference Paper" data-trigger="click">J2C</a>
                 {% endif %}
                 {% if paper.event_certification %} <a href="#" class="badge text-bg-light" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Event Certification" data-trigger="click">Event: {{ paper.which_event }}</a>
                 {% endif %}
@@ -192,6 +198,19 @@ div, iframe {
             $('.outstanding').show();
             $('.framed .badge').removeClass("hovered");
             $('#outstandingbadge').addClass("hovered");
+            focus = this;
+        }
+    })
+    $('.text-bg-primary').click( function(){
+        if (focus == this) {
+            $('.item').show();
+            focus = null;
+            $('#j2cbadge').removeClass("hovered");
+        } else {
+            $('.item').hide();
+            $('.event').show();
+            $('.framed .badge').removeClass("hovered");
+            $('#j2cbadge').addClass("hovered");
             focus = this;
         }
     })

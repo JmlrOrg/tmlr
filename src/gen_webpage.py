@@ -252,6 +252,9 @@ def get_papers():
         if 'Outstanding Certification' in certifications:
             paper['outstanding_certification'] = True
             paper['certifications'].append('outstanding')
+        if 'J2C Certification' in certifications:
+            paper['j2c_certification'] = True
+            paper['certifications'].append('j2c')
         # --------------------------
 
         # Event certifications
