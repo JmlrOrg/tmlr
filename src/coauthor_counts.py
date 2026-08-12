@@ -110,6 +110,23 @@ def fetch_profile(client, tilde_id):
     return profiles[0] if profiles else None
 
 
+def get_all_notes_paged(client, **params):
+    """Drop-in for client.get_all_notes().
+
+    get_all_notes() probes the total via a with_count=True request and crashes
+    (KeyError: 'count') when the server response carries no 'count' field
+    (observed with openreview-py 1.27.3 against api2, 2026-08). Plain offset
+    pagination needs no count.
+    """
+    notes, offset, limit = [], 0, 1000
+    while True:
+        batch = client.get_notes(offset=offset, limit=limit, **params)
+        notes.extend(batch)
+        if len(batch) < limit:
+            return notes
+        offset += limit
+
+
 def main():
     # --- 1. Log in -------------------------------------------------------------
     login_email = input("OpenReview login email: ").strip()
@@ -141,7 +158,7 @@ def main():
     # (permission-aware); keep the TMLR submissions. get_all_notes() paginates.
     tmlr_notes = {}
     for tilde_id in my_tilde_ids:
-        for note in client.get_all_notes(content={"authorids": tilde_id}):
+        for note in get_all_notes_paged(client, content={"authorids": tilde_id}):
             if any(inv.startswith(TMLR_SUBMISSION_INVITATION)
                    for inv in note_invitations(note)):
                 tmlr_notes[note.id] = note
