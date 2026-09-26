@@ -334,5 +334,8 @@ if __name__ == "__main__":
             "papers/index.html",
             "ethics.html",
             "reviewers.html",
+            "ai-review-authors.html",
+            "ai-review-reviewers.html",
+            "ai-review-aes.html",
     ]:
         render_webpage(env, page, base_url, context)

@@ -1,0 +1,73 @@
+{# Base for unlisted pages, which are only shared by direct link: no sidebar,
+   and search engines are asked not to index them. Don't link to these pages
+   from the rest of the site. -#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="noindex">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F15C32CP9G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-F15C32CP9G');
+  </script>
+
+  <!-- favicon -->
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/favicon-16x16.png">
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <title>{% block title %}Transactions on Machine Learning Research{% endblock %}</title>
+
+  <style type="text/css">
+  body {
+      font-size: 18px;
+  }
+
+  h1, h2 {
+      font-weight: bold;
+  }
+
+  a {
+      text-decoration: none;
+      color: #3090C0;
+  }
+
+  #content {
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: 2em 1rem;
+  }
+
+  img.tmlr {
+      width: 7em;
+      margin-bottom: 1.5em;
+  }
+
+  ul li {
+      margin-bottom: 0.5em;
+  }
+  </style>
+</head>
+<body>
+
+<div id="content">
+  <a href="/tmlr/index.html"><img class="tmlr" src="/tmlr/img/tmlr.jpg" alt="Transactions on Machine Learning Research"></a>
+
+  {% block content %}
+  {% endblock %}
+
+  <p class="text-end small mt-5">&copy; <a href="https://www.jmlr.org/tmlr/">TMLR</a> {{year}}.</p>
+</div>
+
+</body>
+</html>
